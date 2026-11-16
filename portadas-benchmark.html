@@ -2,14 +2,14 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
-/* Layout: muro de galería gris neutro + barra de control fija; las fichas escalan con cqw */
+/* Layout: muro de galería gris neutro + barra de control fija; las portadas escalan con --cover */
 :root{
   --wall:#d6d6d9; --wall-2:#c9c9cd; --card:#e9e9ec; --fg:#17171a; --fg-2:#56565e;
   --line:#b4b4ba; --accent:#c6350f; --accent-fg:#fff;
   --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --f-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --f-serif:"Instrument Serif",Georgia,"Times New Roman",serif;
-  --cover:160px;
+  --cover:170px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --wall:#1b1b1e; --wall-2:#131315; --card:#26262a; --fg:#f2f2f4; --fg-2:#9d9da6;
@@ -26,17 +26,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 h1,h2,h3{font-family:var(--f-display);font-weight:800;letter-spacing:-.02em;text-wrap:balance;margin:0}
 h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.02}
 h2{font-size:clamp(1.3rem,3.2vw,1.9rem);line-height:1.1}
-h3{font-size:1rem;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
 p{margin:0}
 a{color:inherit}
 .eyebrow{font-family:var(--f-body);font-size:.69rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2)}
 
-/* ---------- cabecera ---------- */
 header.hd{padding-block:clamp(32px,6vw,64px) 28px;border-bottom:1px solid var(--line)}
-.lede{font-family:var(--f-serif);font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.35;max-width:34ch;margin-top:18px}
-.note{margin-top:22px;max-width:62ch;font-size:.83rem;color:var(--fg-2);border-left:2px solid var(--accent);padding-left:14px}
+.lede{font-family:var(--f-serif);font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.35;max-width:36ch;margin-top:18px}
+.note{margin-top:22px;max-width:64ch;font-size:.83rem;color:var(--fg-2);border-left:2px solid var(--accent);padding-left:14px}
 
-/* ---------- barra de control ---------- */
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--wall);border-bottom:1px solid var(--line);padding-block:12px}
 .bar-in{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
 .grp{display:flex;align-items:center;gap:8px;min-width:0}
@@ -48,69 +45,40 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
 button.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .count{font-size:.72rem;color:var(--fg-2);font-variant-numeric:tabular-nums;margin-left:auto}
 
-/* ---------- rejilla ---------- */
 main{padding-block:26px 10px}
 .grid{display:grid;gap:clamp(14px,2vw,24px);grid-template-columns:repeat(auto-fill,minmax(var(--cover),1fr));align-items:start}
 .wall-mode .grid{gap:7px}
 .show{min-width:0;display:flex;flex-direction:column;gap:9px}
 .meta{min-width:0}
 .wall-mode .meta{display:none}
+.tile{aspect-ratio:1/1;max-width:100%;overflow:hidden;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);background:var(--wall-2)}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.gs .tile{filter:grayscale(1) contrast(1.04)}
+.tile.na{display:grid;place-items:center;text-align:center;padding:14px;border:1px dashed var(--line);box-shadow:none;background:transparent}
+.tile.na span{font-size:.7rem;color:var(--fg-2);line-height:1.4}
 .nm{font-family:var(--f-display);font-weight:600;font-size:.88rem;line-height:1.2;letter-spacing:-.01em}
 .hs{font-size:.72rem;color:var(--fg-2);margin-top:1px}
 .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 .tag{font-size:.6rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border:1px solid var(--line);border-radius:3px;color:var(--fg-2)}
-.an{font-size:.76rem;color:var(--fg-2);margin-top:7px;line-height:1.45}
+.tag.mic{border-color:var(--accent);color:var(--accent)}
+.an{font-size:.78rem;color:var(--fg-2);margin-top:7px;line-height:1.45}
 .lk{display:inline-block;margin-top:7px;font-size:.7rem;font-weight:600;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
 .lk:hover{border-bottom-color:currentColor}
 
-/* ---------- la ficha (reconstrucción) ---------- */
-.tile{aspect-ratio:1/1;max-width:100%;container-type:inline-size;position:relative;overflow:hidden;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.22),0 0 0 1px rgba(0,0,0,.07)}
-.gs .tile{filter:grayscale(1) contrast(1.04)}
-.tile .ly{position:absolute;inset:0;display:flex}
-.tx{font-family:var(--f-display);font-weight:800;line-height:.92;letter-spacing:-.025em;text-transform:uppercase}
-.tx-sr{font-family:var(--f-serif);font-weight:400;text-transform:none;letter-spacing:0;line-height:1.05}
-.tx-cd{letter-spacing:-.045em;transform:scaleX(.88);transform-origin:left center}
-.sil{position:absolute;border-radius:999px 999px 0 0;background:currentColor;opacity:.3}
-.sil::before{content:"";position:absolute;left:50%;transform:translateX(-50%);border-radius:50%;background:currentColor;width:52%;aspect-ratio:1;top:-46%}
-
-/* variantes */
-.v-stack .ly{flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9cqw}
-.v-stack .tx{font-size:19cqw}
-.v-block .ly{flex-direction:column;justify-content:flex-end;padding:8cqw}
-.v-block .tx{font-size:24cqw;text-align:left}
-.v-serif .ly{flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12cqw}
-.v-serif .tx{font-size:15cqw}
-.v-band .ly{flex-direction:column;justify-content:flex-start;padding:8cqw}
-.v-band .tx{font-size:13cqw;position:relative;z-index:2}
-.v-band .sil{width:62%;height:56%;left:19%;bottom:0}
-.v-mark .ly{flex-direction:column;align-items:center;justify-content:center;gap:7cqw;padding:12cqw}
-.v-mark .tx{font-size:9cqw;letter-spacing:.06em}
-.mk{width:30cqw;aspect-ratio:1;border-radius:50%;border:5cqw solid currentColor}
-.mk.sq{border-radius:12%}
-.mk.tr{border:0;background:currentColor;clip-path:polygon(50% 4%,100% 96%,0 96%)}
-.v-duo .ly{flex-direction:column;justify-content:space-between;padding:8cqw}
-.v-duo .pair{display:flex;gap:5cqw;align-items:flex-end;height:54%}
-.v-duo .pair>i{flex:1;border-radius:999px 999px 0 0;background:currentColor;opacity:.32;position:relative}
-.v-duo .pair>i::before{content:"";position:absolute;left:50%;transform:translateX(-50%);top:-40%;width:62%;aspect-ratio:1;border-radius:50%;background:currentColor}
-.v-duo .tx{font-size:12cqw}
-.v-chaos .ly{align-items:center;justify-content:center;padding:7cqw}
-.v-chaos .tx{font-size:17cqw;text-align:center;position:relative;z-index:2}
-.v-chaos .blob{position:absolute;border-radius:50%;filter:blur(1px)}
-.v-illus .ly{flex-direction:column;justify-content:flex-end;padding:7cqw}
-.v-illus .tx{font-size:13cqw;position:relative;z-index:2}
-.v-illus .ch{position:absolute;border-radius:50%}
-
-/* ---------- secciones de texto ---------- */
 section.blk{border-top:1px solid var(--line);padding-block:clamp(34px,5vw,58px)}
-.hd2{display:flex;flex-direction:column;gap:9px;max-width:60ch;margin-bottom:26px}
+.hd2{display:flex;flex-direction:column;gap:9px;max-width:62ch;margin-bottom:26px}
+.hd2 p{font-size:.9rem;color:var(--fg-2)}
 .cols{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(248px,1fr))}
 .c{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:18px;min-width:0}
 .c .k{font-family:var(--f-display);font-weight:800;font-size:.95rem;letter-spacing:-.01em}
 .c .v{font-size:.82rem;color:var(--fg-2);margin-top:7px}
 .c .ex{font-size:.72rem;color:var(--fg-2);margin-top:10px;padding-top:9px;border-top:1px solid var(--line);font-style:italic}
-ol.bad{list-style:none;counter-reset:b;padding:0;margin:0;display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(258px,1fr))}
+.c .n{font-family:var(--f-display);font-weight:800;font-size:1.5rem;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+ol.bad{list-style:none;counter-reset:b;padding:0;margin:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(262px,1fr))}
 ol.bad li{counter-increment:b;position:relative;padding-left:34px;font-size:.86rem;min-width:0}
-ol.bad li::before{content:counter(b);position:absolute;left:0;top:0;width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--accent-fg);font-size:.68rem;font-weight:700;font-family:var(--f-display)}
+ol.bad li::before{content:counter(b);position:absolute;left:0;top:1px;width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--accent-fg);font-size:.68rem;font-weight:700;font-family:var(--f-display)}
+ol.bad li.ko::before{background:var(--fg-2)}
+ol.bad li.ko{color:var(--fg-2)}
 table{width:100%;border-collapse:collapse;font-size:.83rem}
 .tw{overflow-x:auto;border:1px solid var(--line);border-radius:5px;background:var(--card)}
 th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -122,7 +90,7 @@ td code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem
 .rec strong{font-weight:600;color:var(--fg)}
 .rec ul{margin:0;padding-left:19px;display:grid;gap:7px;font-size:.86rem}
 footer{border-top:1px solid var(--line);padding-block:30px 46px;font-size:.76rem;color:var(--fg-2)}
-footer p{max-width:70ch;margin-bottom:9px}
+footer p{max-width:72ch;margin-bottom:9px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -130,8 +98,8 @@ footer p{max-width:70ch;margin-bottom:9px}
 <header class="hd">
   <p class="eyebrow">Benchmark de identidad visual · España · Latinoamérica · Inglés</p>
   <h1>Portadas<br>que funcionan</h1>
-  <p class="lede">32 identidades reconstruidas para comparar las tres variables que deciden si una portada sobrevive: color, peso tipográfico y composición.</p>
-  <p class="note"><strong>Son reconstrucciones esquemáticas, no las portadas reales.</strong> Los artifacts bloquean imágenes externas, así que cada ficha reproduce de memoria la paleta, el tratamiento tipográfico y la composición de cada marca —no el arte original. Sirven para aislar las variables de diseño y correr los dos tests de abajo; para ver la portada real, usa el enlace de cada ficha. Las paletas son aproximadas.</p>
+  <p class="lede">30 portadas reales, a tamaño original, con los dos tests que deciden si un diseño sobrevive en la rejilla de una app.</p>
+  <p class="note">Las imágenes son el <strong>arte oficial de cada programa</strong>, descargado del catálogo público de Apple Podcasts a 1000×1000 px. Las notas de análisis están escritas mirando cada portada, no de memoria. <strong>Faltan dos</strong> de las 32 previstas: Marian Rojas Estapé y Victoria 147 no se resolvieron en el catálogo.</p>
 </header>
 </div>
 
@@ -139,51 +107,61 @@ footer p{max-width:70ch;margin-bottom:9px}
   <div class="grp"><span class="lab">Test de tamaño</span><div class="chips" id="sz">
     <button class="chip" data-s="55">55 px</button>
     <button class="chip" data-s="80">80 px</button>
-    <button class="chip" data-s="160" aria-pressed="true">160 px</button>
-    <button class="chip" data-s="300">300 px</button>
+    <button class="chip" data-s="170" aria-pressed="true">170 px</button>
+    <button class="chip" data-s="320">320 px</button>
   </div></div>
   <div class="grp"><div class="chips">
     <button class="chip" id="gsb" aria-pressed="false">Escala de grises</button>
   </div></div>
-  <div class="grp"><span class="lab">Zona</span><div class="chips" id="rg">
+  <div class="grp"><span class="lab">Filtro</span><div class="chips" id="rg">
     <button class="chip" data-r="all" aria-pressed="true">Todas</button>
     <button class="chip" data-r="es">España</button>
     <button class="chip" data-r="latam">LatAm</button>
     <button class="chip" data-r="en">Inglés</button>
+    <button class="chip" data-r="mic">Con micrófono</button>
+    <button class="chip" data-r="mujer">Mujer al frente</button>
   </div></div>
   <span class="count" id="ct"></span>
 </div></div></div>
 
 <div class="wrap">
-<main>
-  <div class="grid" id="grid"></div>
-</main>
+<main><div class="grid" id="grid"></div></main>
 
 <section class="blk">
-  <div class="hd2"><p class="eyebrow">Los patrones</p><h2>Seis arquetipos, y solo seis</h2>
-  <p style="font-size:.9rem;color:var(--fg-2)">Todo lo de arriba se reduce a estos. Elige uno y sé disciplinada: las identidades que fallan son las que mezclan tres.</p></div>
+  <div class="hd2"><p class="eyebrow">El hallazgo</p><h2>El micrófono no mata nada</h2>
+  <p>Todas las guías de diseño coinciden en que dibujar un micrófono en la portada es el cliché que hay que evitar. Activa el filtro «Con micrófono» arriba y mira quién lo lleva.</p></div>
+  <div class="cols">
+    <div class="c"><p class="n">9 de 30</p><p class="v">llevan un micrófono visible, de adorno o como pieza central del logo.</p></div>
+    <div class="c"><p class="k">The Wild Project</p><p class="v">El podcast más grande de España tiene un <strong>micrófono en el centro de un emblema circular</strong>, sobre amarillo, con la palabra «podcast» incluida. Comete tres anti-patrones a la vez.</p></div>
+    <div class="c"><p class="k">The Joe Rogan Experience</p><p class="v">El más escuchado del mundo: emblema circular, micrófono, cara ilustrada y rayos. Más cerca de un parche de chupa que de una portada sobria.</p></div>
+    <div class="c"><p class="k">Qué significa</p><p class="v">Las reglas de legibilidad son reales. Las reglas de buen gusto son negociables. <strong>Lo que de verdad no se perdona es ser ilegible</strong>, no ser obvio.</p></div>
+  </div>
+</section>
+
+<section class="blk">
+  <div class="hd2"><p class="eyebrow">Los patrones</p><h2>Siete arquetipos</h2>
+  <p>Mirando las 30, esto es lo que realmente hay. Elige uno y sé disciplinada: las identidades que fallan son las que mezclan tres.</p></div>
   <div class="cols" id="arch"></div>
 </section>
 
 <section class="blk">
-  <div class="hd2"><p class="eyebrow">Anti-patrones</p><h2>Lo que mata una portada</h2></div>
+  <div class="hd2"><p class="eyebrow">Anti-patrones</p><h2>Lo que mata una portada</h2>
+  <p>Los cuatro primeros los confirma el muro de arriba. Los tres últimos son los que todas las guías repiten y la realidad desmiente: están tachados a propósito.</p></div>
   <ol class="bad">
-    <li>Un <strong>micrófono dibujado</strong>. El cliché absoluto: ya saben que es un podcast.</li>
-    <li><strong>Ondas de audio.</strong> Idem, y encima se convierten en ruido gris a 55 px.</li>
-    <li><strong>Auriculares.</strong> Tercer jinete del apocalipsis.</li>
-    <li><strong>Tipografía manuscrita o script.</strong> Se deshace en miniatura. Y en el nicho de mujeres + negocio es el cliché que te hunde en el montón.</li>
-    <li><strong>Azul marino o negro sin acento.</strong> Es el fondo por defecto de media plataforma: desapareces.</li>
-    <li><strong>Tagline.</strong> No se lee nunca. Ni una vez.</li>
-    <li><strong>Tu nombre en la portada.</strong> La app ya lo pone debajo.</li>
-    <li><strong>Número de episodio.</strong> Idem.</li>
-    <li><strong>Degradados suaves.</strong> Colapsan a un gris plano en el test de escala de grises.</li>
-    <li><strong>Reutilizar la portada cuadrada como miniatura de YouTube.</strong> Se recorta mal y no vende el episodio.</li>
+    <li><strong>Tipografía fina o de poco peso.</strong> Pon el muro a 55 px: Nadie Sabe Nada y Expertas en Nada desaparecen. Es el fallo más caro y el más común.</li>
+    <li><strong>Demasiadas palabras.</strong> Leyendas Legendarias y La Cotorrisa se vuelven una mancha. Creativo, con dos, se lee desde la otra punta.</li>
+    <li><strong>Fondo claro con texto claro.</strong> Activa escala de grises: Friends That Invest y Yo Emprendedora pierden el título entero.</li>
+    <li><strong>Logos de patrocinador y plataforma.</strong> La Cotorrisa mete cuatro (Spotify, Facebook, iTunes, YouTube) y se come el espacio que debería ser suyo.</li>
+    <li><strong>Reutilizar la portada cuadrada como miniatura de YouTube.</strong> Se recorta mal y no vende el episodio. Este sigue en pie.</li>
+    <li class="ko"><s>Un micrófono dibujado.</s> Lo llevan los dos podcasts más grandes del mundo.</li>
+    <li class="ko"><s>Nunca pongas un tagline.</s> Acquired lleva «Every Company Has A Story» y funciona, porque es corto y tiene contraste.</li>
+    <li class="ko"><s>Nada de rosa en negocio.</s> Se Regalan Dudas es rosa chicle y es el mayor caso de éxito femenino en español. La forma del logotipo es lo que manda, no el color.</li>
   </ol>
 </section>
 
 <section class="blk">
   <div class="hd2"><p class="eyebrow">No es una pieza, son cuatro</p><h2>El sistema completo</h2>
-  <p style="font-size:.9rem;color:var(--fg-2)">El error más caro es tratar la identidad como «un logo». Son cuatro archivos distintos desde el diseño, cada uno con un trabajo diferente.</p></div>
+  <p>El error más caro es tratar la identidad como «un logo». Son archivos distintos desde el diseño, cada uno con un trabajo diferente.</p></div>
   <div class="tw"><table>
     <thead><tr><th>Pieza</th><th>Formato</th><th>Dónde se ve</th><th>Su trabajo</th></tr></thead>
     <tbody>
@@ -196,136 +174,122 @@ footer p{max-width:70ch;margin-bottom:9px}
   </table></div>
   <div class="cols" style="margin-top:16px">
     <div class="c"><p class="k">El test de los 55 px</p><p class="v">Si el título no se lee a ese tamaño, el diseño está mal. Es la regla que más se repite en todas las guías como «la única que importa de verdad». Úsalo arriba.</p></div>
-    <div class="c"><p class="k">El test de escala de grises</p><p class="v">Revela colores que parecen distintos pero colapsan al mismo brillo. Si tu portada desaparece en gris, tiene un problema de contraste, no de color.</p></div>
-    <div class="c"><p class="k">Zona segura de Apple</p><p class="v">Hay áreas que se tapan con el botón de play, etiquetas y ofertas de suscripción. Apple publica una plantilla de Show Cover con esas zonas marcadas: no metas texto ahí.</p></div>
-    <div class="c"><p class="k">Límites de texto</p><p class="v">2–4 palabras ideal, 7 como máximo absoluto. Máximo 2 tipografías. Contraste mínimo 4,5:1 entre texto y fondo.</p></div>
+    <div class="c"><p class="k">El test de escala de grises</p><p class="v">Revela colores que parecen distintos pero colapsan al mismo brillo. Si la portada desaparece en gris, el problema es de contraste, no de color.</p></div>
+    <div class="c"><p class="k">Zona segura de Apple</p><p class="v">Hay áreas que tapan el botón de play, las etiquetas y las ofertas de suscripción. Apple publica una plantilla de Show Cover con esas zonas marcadas: no metas texto ahí.</p></div>
+    <div class="c"><p class="k">Límites prácticos</p><p class="v">2–4 palabras ideal, 7 como máximo. Máximo 2 tipografías. Contraste mínimo 4,5:1 entre texto y fondo.</p></div>
   </div>
 </section>
 
 <section class="blk">
   <div class="hd2"><p class="eyebrow">Conclusión</p><h2>El hueco visual, para tu proyecto</h2></div>
   <div class="rec">
-    <p>Filtra arriba por <strong>España</strong> y mira las dos últimas fichas junto a las de negocio. Verás el patrón: los podcasts de <strong>mujeres + negocio</strong> en español usan casi todos crema, nude, dorado y tipografía orgánica —el código visual del coaching. Los de <strong>negocio «serio»</strong> usan todos negro sobrio y estética masculina por defecto.</p>
-    <p><strong>Nadie está en el cruce: editorial premium con una mujer en el centro.</strong> Ese es el territorio de <em>The Diary of a CEO</em>, y en español está vacío.</p>
+    <p>Filtra arriba por <strong>Mujer al frente</strong>. Las cinco comparten una cosa: <strong>luz alta, sonrisa y tipografía elegante de poco peso.</strong> Ninguna tiene peso visual. Yo Emprendedora es acuarela rosa con letra manuscrita; Friends That Invest es una oficina luminosa con magenta fino. Las dos se deshacen a 55 px.</p>
+    <p>Las dos excepciones enseñan la lección entera. <strong>Sagrada Ambición</strong> usa un azul índigo profundo, inusual en el nicho, y por eso tiene autoridad. <strong>Se Regalan Dudas</strong> es rosa chicle —el color más «femenino» del muro— pero su logotipo es un sello geométrico duro en cajas blancas, sin caras y sin florituras. Es el mayor caso de éxito femenino en español.</p>
+    <p><strong>La conclusión no es «evita el rosa». Es: la forma manda sobre el color.</strong> Puedes usar cualquier paleta si la estructura tipográfica es dura y legible.</p>
     <ul>
-      <li><strong>Arquetipo:</strong> editorial/revista, con toque de retrato de autoridad.</li>
-      <li><strong>Paleta:</strong> un neutro profundo que no sea negro puro (tinta, verde botella, burdeos desaturado) + <strong>un único acento saturado</strong> que sea tuyo. Evita rosa, lila y dorado: están quemados en tu nicho.</li>
-      <li><strong>Tipografía:</strong> una sans pesada para el nombre + una serif editorial para apoyos. Dos, no más.</li>
-      <li><strong>Portada:</strong> logotipo-sello, 2–3 palabras, sin tu cara. Tu cara va en las miniaturas, no en el sello.</li>
-      <li><strong>Miniaturas:</strong> retrato de la invitada <em>y tuyo</em>, desaturados con un acento de color, texto editorial en mayúsculas. Legible en un televisor a tres metros.</li>
-      <li><strong>El set:</strong> inviértele más que al logo. Dos sillones, luz de tres puntos y un objeto de marca físico y repetido —el equivalente a tu «diario».</li>
-      <li><strong>Sistema, no pieza:</strong> diseña desde el día uno pensando en portada, miniatura, vertical, newsletter, entrada de evento y quizá libro. Es lo que hizo Se Regalan Dudas, y por eso pudieron construir una empresa de 25 personas encima.</li>
+      <li><strong>Arquetipo:</strong> sello tipográfico o editorial. No retrato sonriente, que es el código saturado del nicho.</li>
+      <li><strong>Peso tipográfico antes que paleta:</strong> una sans pesada y condensada. Si eliges una serif elegante, que sea grande y de alto contraste, como Sagrada Ambición.</li>
+      <li><strong>Portada sin tu cara.</strong> Tu cara va en las miniaturas de YouTube, que es donde vende. El sello debe funcionar sin ti.</li>
+      <li><strong>Un neutro profundo + un acento:</strong> es el código de «negocio en serio» (DOAC, My First Million, Itnig, All-In). Para diferenciarte dentro de ese código, mira Acquired: verde esmeralda en vez de negro.</li>
+      <li><strong>Miniaturas:</strong> retrato de la invitada y tuyo, desaturados con un acento de color, texto en mayúsculas. Legible en un televisor a tres metros.</li>
+      <li><strong>El set:</strong> inviértele más que al logo. Un objeto de marca físico y repetido, el equivalente al diario de Bartlett.</li>
+      <li><strong>Sistema, no pieza:</strong> diseña pensando en portada, miniatura, vertical, newsletter, entrada de evento y quizá libro. Es lo que hizo Se Regalan Dudas, y por eso pudo construir una empresa de 25 personas encima.</li>
     </ul>
   </div>
 </section>
 
 <footer>
-  <p><strong>Procedencia de los datos.</strong> Las reglas técnicas y de diseño vienen de guías del sector (Thumbo, Lower Street, Descript, Buzzsprout, PodRewind, Transistor, Captivate, Content Allies, The Podcast Consultant, J-Delmas, Made by Evoke). Casi ninguna es documentación oficial de Apple, Spotify o YouTube, y los números concretos discrepan entre ellas: trátalos como reglas de oro y verifica las especificaciones en la documentación oficial de cada plataforma.</p>
-  <p><strong>Las reconstrucciones visuales son mías y aproximadas</strong>, hechas de memoria porque la red de esta sesión bloquea la descarga de arte real. No las uses como referencia de color exacto en un brief: abre la portada real con el enlace de cada ficha.</p>
+  <p><strong>Imágenes.</strong> Arte oficial de cada programa, obtenido del catálogo público de Apple Podcasts a 1000×1000 px, el 15 de noviembre de 2026. Se reproducen aquí para análisis y comparación; los derechos son de cada programa. Las portadas cambian: comprueba la actual en el enlace de cada ficha.</p>
+  <p><strong>Dos ausencias y una corrección.</strong> El Podcast de Marian Rojas Estapé y Victoria 147 no se resolvieron en el catálogo de Apple y se quedan fuera. Girls That Invest aparece como <strong>Friends That Invest</strong>: no es un error, es el nombre nuevo del programa de Simran Kaur tras un cambio de marca.</p>
+  <p><strong>Reglas técnicas.</strong> Vienen de guías del sector (Thumbo, Lower Street, Descript, Buzzsprout, PodRewind, Transistor, Captivate, Content Allies, The Podcast Consultant). Casi ninguna es documentación oficial de Apple, Spotify o YouTube y discrepan entre ellas en los números: trátalas como reglas de oro y verifica las especificaciones finales en la documentación oficial de cada plataforma.</p>
 </footer>
 </div>
 
 <script>
 const R={es:"España",latam:"LatAm",en:"Inglés"};
 const A={
- logo:["Logotipo-sello","Solo tipografía pesada y un color. Sin imagen, sin cara.","Cracks · Dementes · La Ruina"],
- color:["Dueño de un color","Un color saturado inconfundible hace todo el trabajo en la rejilla.","Estirando el Chicle · Call Her Daddy"],
- retrato:["Retrato de autoridad","Tu cara más tipografía sobria. Funciona cuando tú ya eres la marca.","Huberman · Marian Rojas · Lex Fridman"],
- dupla:["Dupla","Las dos caras, siempre, en el mismo sitio. El formato que más crece de cero.","My First Million · La Pija y la Quinqui"],
- ilus:["Personaje ilustrado","Mascota o caricatura. Muy fuerte en LatAm y envejece mejor que una foto.","La Cotorrisa · Leyendas Legendarias"],
- edit:["Editorial / revista","Neutro profundo, tipografía editorial, retrato desaturado. El territorio premium.","The Diary of a CEO"]
+ logo:["Sello tipográfico","Solo tipografía, sin caras. El que mejor aguanta la miniatura.","Creativo · Acquired · All-In · Yo Emprendedora"],
+ color:["Dueño de un color","Un color saturado que ocupa todo y se reconoce antes de leer nada.","Se Regalan Dudas · Dementes"],
+ retrato:["Una cara","Retrato grande del presentador. El arquetipo más frecuente del muro.","Huberman · Cracks · Call Her Daddy · Lex Fridman"],
+ dupla:["Dos o más caras","Todos los presentadores, siempre en la misma posición. Domina en comedia.","La Ruina · Itnig · My First Million · SmartLess"],
+ ilus:["Ilustración","Caricatura o ilustración geométrica. Muy fuerte en LatAm, envejece mejor que una foto.","Leyendas Legendarias · Entiende tu mente"],
+ badge:["Emblema circular","Sello redondo tipo parche, casi siempre con micrófono. Lo usan los dos más grandes del mundo.","The Wild Project · Joe Rogan"],
+ edit:["Editorial / moda","Fotografía de producción con tipografía de revista. El territorio premium.","The Diary of a CEO · La Pija y la Quinqui"]
 };
 const S=[
  // ---- ESPAÑA ----
- {n:"The Wild Project",h:"Jordi Wild · 2020",r:"es",a:"logo",v:"v-band",c:["#0e0e10","#ffffff","#ff3d1f"],t:["The Wild","Project"],note:"El sistema más completo de España. El set oscuro con neones es tan reconocible que identificas el programa sin leer nada."},
- {n:"Marian Rojas Estapé",h:"Audio-first · 2023",r:"es",a:"retrato",v:"v-serif",c:["#ded5c8","#2b2721","#8c6a4a"],t:["Marian Rojas"],sr:1,note:"Identidad de autora, no de programa. Funciona porque ella ya era la marca. 3,4 M de seguidores en Spotify."},
- {n:"Nadie Sabe Nada",h:"Buenafuente + Berto · 2013",r:"es",a:"logo",v:"v-stack",c:["#f2f2f0","#111111","#e8402a"],t:["Nadie","Sabe","Nada"],note:"Tipografía y nada más. Doce años de inercia: la marca es el programa, no la portada."},
- {n:"La Ruina",h:"Taltavull + Fuentes · 2019",r:"es",a:"color",v:"v-block",c:["#c81e24","#ffffff","#ffffff"],t:["La","Ruina"],note:"Rojo plano y tipografía gigante. Su identidad real es el formato en directo, no el arte."},
- {n:"La Pija y la Quinqui",h:"Mariang + Peguer · 2021",r:"es",a:"dupla",v:"v-chaos",c:["#ff3ea5","#ffffff","#00e0c6"],t:["Pija","Quinqui"],note:"Estética Y2K saturada, imposible de confundir. El color hace todo el trabajo en la rejilla."},
- {n:"Estirando el Chicle",h:"Iglesias + Martín · 2019",r:"es",a:"color",v:"v-block",c:["#ff5fa2","#1a1a1a","#1a1a1a"],t:["Estirando","el Chicle"],note:"Lección de libro: si posees un color, posees el estante. Lo reconoces a 40 píxeles."},
- {n:"Entiende tu mente",h:"Molo Cebrián · 2017",r:"es",a:"logo",v:"v-mark",c:["#3d4ea8","#ffffff","#ffd23f"],t:["Entiende tu mente"],mk:"",note:"+100 M de descargas con la estética más genérica de la lista. Hay 200 podcasts de psicología que se parecen."},
- {n:"Tengo un Plan",h:"Domínguez + Beguería · 2020",r:"es",a:"logo",v:"v-stack",c:["#101418","#ffffff","#3ddc84"],t:["Tengo","un Plan"],note:"Portada sobria y miniaturas de YouTube a grito pelado. Esa disociación deliberada es la estrategia correcta."},
- {n:"Roca Project",h:"Carlos Roca · 2024",r:"es",a:"retrato",v:"v-band",c:["#121212","#ffffff","#c8a24a"],t:["Roca","Project"],note:"Premium correcto y poco diferenciado. Entrevista profunda semanal, miércoles a las 19:30, siempre."},
- {n:"Itnig",h:"Farrero + Romero · 2016",r:"es",a:"logo",v:"v-mark",c:["#0f0f0f","#ffffff","#ffffff"],t:["Itnig"],mk:"sq",note:"La estética «startup masculina» por defecto: oscuro, sobrio, numérico. El set de la oficina hace de logo."},
- {n:"Yo Emprendedora",h:"Laura Urzaiz",r:"es",a:"retrato",v:"v-serif",c:["#f7e9e3","#5a4038","#c98b7a"],t:["Yo Emprendedora"],sr:1,note:"El código visual del nicho: crema, nude, serif suave. Honesto con su propuesta, invisible en la rejilla."},
- {n:"Sagrada Ambición",h:"Nayla Norryh",r:"es",a:"retrato",v:"v-serif",c:["#efe6dc","#4a3b2f","#b08d57"],t:["Sagrada Ambición"],sr:1,note:"+870 K escuchas con la misma paleta exacta. Esto es el montón del que tienes que salir."},
+ {f:"the-wild-project",n:"The Wild Project",h:"Jordi Wild · España",r:"es",a:"badge",mic:1,note:"Amarillo mostaza y emblema negro con un micrófono dentro, más la palabra «podcast». Rompe tres anti-patrones y es el mayor del país. El color hace todo el trabajo."},
+ {f:"nadie-sabe-nada",n:"Nadie Sabe Nada",h:"Buenafuente + Berto · SER",r:"es",a:"dupla",mic:1,note:"Foto del plató con pollos de goma sobre naranja. Se lee como un programa de televisión. La tipografía de pincel se deshace en miniatura."},
+ {f:"la-ruina",n:"La Ruina",h:"Taltavull + Fuentes",r:"es",a:"dupla",note:"Glitch y aberración cromática rojo-cian sobre negro. De lo más distintivo del muro: transmite el «fracaso» del formato sin explicarlo."},
+ {f:"la-pija-y-la-quinqui",n:"La Pija y la Quinqui",h:"Mariang + Carlos Peguer",r:"es",a:"edit",note:"Fotografía editorial de moda, paleta terracota y hueso, tipografía condensada muy apretada. Parece una campaña de Zalando —y la patrocina Zalando."},
+ {f:"estirando-el-chicle",n:"Estirando el chicle",h:"Iglesias + Martín · Podium",r:"es",a:"dupla",note:"Mostaza de fondo con el título en rosa chicle y un globo. El contraste rosa sobre amarillo es flojo: en gris casi desaparece."},
+ {f:"entiende-tu-mente",n:"Entiende Tu Mente",h:"Molo Cebrián",r:"es",a:"ilus",note:"Cabeza geométrica verde petróleo con llave de cuerda, sobre formas mostaza, coral y menta. La mejor pieza de diseño puro del muro: sin texto y aun así legible."},
+ {f:"tengo-un-plan",n:"Tengo un Plan",h:"Beguería + Domínguez",r:"es",a:"dupla",mic:1,note:"Negro con rótulo de neón amarillo y blanco, los dos con cara de circunstancias. Estética de miniatura de YouTube llevada a la portada."},
+ {f:"roca-project",n:"ROCA PROJECT",h:"Carlos Roca",r:"es",a:"retrato",mic:1,note:"Negro, micrófono real en primer plano y logotipo de piedra agrietada. El efecto 3D se empasta a tamaño pequeño."},
+ {f:"itnig",n:"Podcast de Itnig",h:"Farrero + Romero",r:"es",a:"dupla",note:"Negro con amarillo ácido y tipografía condensada enorme. Mucho más agresivo de lo que uno espera de un podcast de startups, y por eso funciona."},
+ {f:"yo-emprendedora",n:"Yo Emprendedora",h:"Laura Urzaiz",r:"es",a:"logo",mujer:1,note:"Acuarela rosa y caligrafía fina. Es el código visual exacto del nicho de mujeres y negocio. A 55 px no queda nada: ni el nombre."},
+ {f:"sagrada-ambicion",n:"Sagrada Ambición",h:"Nayla Norryh",r:"es",a:"retrato",mujer:1,note:"Azul índigo profundo con serif de alto contraste. La mejor del nicho femenino: el azul oscuro le da la autoridad que el rosa le quita a las demás."},
  // ---- LATAM ----
- {n:"Se Regalan Dudas",h:"Frangie + Sahagún · 2018",r:"latam",a:"logo",v:"v-stack",c:["#f4efe9","#23201d","#d9644a"],t:["Se Regalan","Dudas"],sr:1,note:"La mejor identidad que escala a negocio en español: funciona en portada, libro, tienda y red de podcasts."},
- {n:"Cracks Podcast",h:"Oso Trava",r:"latam",a:"logo",v:"v-block",c:["#0a0a0a","#ffd400","#ffd400"],t:["Cracks"],note:"Negro y amarillo, logotipo pesadísimo. Lee perfecto a 55 px: el modelo de sello bien hecho."},
- {n:"Dementes",h:"Diego Barrazas",r:"latam",a:"logo",v:"v-stack",c:["#ffffff","#000000","#000000"],t:["Dementes"],note:"Brutalismo blanco y negro. Austero, memorable y coherente con la tesis: audiencia antes que compañía."},
- {n:"Creativo",h:"Roberto Mtz",r:"latam",a:"retrato",v:"v-band",c:["#1a1a1a","#ffffff","#ff6b35"],t:["Creativo"],note:"El más masivo de México. Formato de conversación emocional con identidad de canal, no de programa."},
- {n:"Leyendas Legendarias",h:"779 episodios",r:"latam",a:"ilus",v:"v-illus",c:["#f5d547","#1a1a1a","#e8402a"],t:["Leyendas","Legendarias"],note:"Caricatura de los presentadores sobre amarillo. La ilustración de personajes es dominante en LatAm."},
- {n:"La Cotorrisa",h:"Pérez + Slobotzky",r:"latam",a:"ilus",v:"v-mark",c:["#0b8f5e","#ffffff","#f5d547"],t:["La Cotorrisa"],mk:"",note:"Un símbolo propio (el animal) en vez de caras. Es lo más cercano a un logo real de toda la lista."},
- {n:"Hablando Huevadas",h:"Luna + Mendoza · Perú",r:"latam",a:"color",v:"v-chaos",c:["#e8402a","#ffffff","#f5d547"],t:["Hablando","Huevadas"],note:"Funciona por descaro, no por sofisticación. Siete años y número uno de comedia en Perú."},
- {n:"Startupeable",h:"Enzo Cavalie",r:"latam",a:"logo",v:"v-mark",c:["#1b3a6b","#ffffff","#4d9de0"],t:["Startupeable"],mk:"tr",note:"Corporativo, conservador, invisible. Su valor está en el contenido, no en la marca visual."},
- {n:"Expertas en Nada",h:"Zulueta + Salas · Chile",r:"latam",a:"dupla",v:"v-duo",c:["#f0ebe3","#2b2b2b","#d9644a"],t:["Expertas","en Nada"],note:"Factura de productora (Podium). Agotaron el Teatro Oriente en una hora: la marca es la amistad."},
- {n:"Victoria 147",h:"Ana Victoria García · MX",r:"latam",a:"retrato",v:"v-stack",c:["#2b1d3f","#ffffff","#f2b2c8"],t:["Victoria","147"],note:"Número como marca: memorable y propio. El rosa de acento la devuelve al código del nicho."},
+ {f:"se-regalan-dudas",n:"Se Regalan Dudas",h:"Frangie + Sahagún · Dudas Media",r:"latam",a:"color",mujer:1,note:"Rosa chicle con un logotipo geométrico en cajas blancas. Sin caras, sin florituras. La prueba de que el rosa no es el problema: la forma manda."},
+ {f:"cracks",n:"Cracks Podcast",h:"Oso Trava · México",r:"latam",a:"retrato",note:"Retrato en blanco y negro sobre pared clara, «CRACKS» en negro cortado y el nombre en rojo. Tres elementos y ni uno de sobra."},
+ {f:"dementes",n:"DEMENTES",h:"Diego Barrazas · México",r:"latam",a:"color",note:"Textura líquida coral con tipografía blanca y la N invertida. El guiño tipográfico encaja con el nombre sin necesidad de explicarlo."},
+ {f:"creativo",n:"CREATIVO",h:"Roberto Mtz · México",r:"latam",a:"logo",note:"Rojo plano, dos palabras blancas que ocupan todo el cuadro. La portada más legible del muro: a 55 px sigue intacta. Cero concesiones."},
+ {f:"leyendas-legendarias",n:"Leyendas Legendarias",h:"Sonoro | SINCO · México",r:"latam",a:"ilus",mic:1,note:"Ilustración morada y mostaza de los tres en una biblioteca ocultista. Preciosa a tamaño grande, mancha ilegible a tamaño pequeño."},
+ {f:"la-cotorrisa",n:"La Cotorrisa",h:"Ricardo Pérez + Slobotzky",r:"latam",a:"ilus",mic:1,note:"Caricatura sobre azul con cuatro logos de plataforma abajo. Esos logos ocupan el espacio que debería ser suyo y no aportan nada."},
+ {f:"hablando-huevadas",n:"Hablando Huevadas",h:"Luna + Mendoza · Perú",r:"latam",a:"ilus",note:"Negro con lettering rojo de graffiti y dos caricaturas con cascos. Descarado y perfectamente coherente con el nombre."},
+ {f:"startupeable",n:"Startupeable",h:"Enzo Cavalie",r:"latam",a:"retrato",mic:1,note:"Turquesa con doodles de bombillas, gráficas y un micrófono. Simpático, pero la densidad de garabatos le quita autoridad en un podcast de capital riesgo."},
+ {f:"expertas-en-nada",n:"Expertas en Nada",h:"Zulueta + Salas · Podium Chile",r:"latam",a:"dupla",mic:1,mujer:1,note:"Cocina kitsch amarilla, vestuario de autor y tipografía fina en minúsculas. Dirección de arte de revista —y la tipografía fina es justo lo que se pierde en miniatura."},
  // ---- INGLÉS ----
- {n:"The Diary of a CEO",h:"Steven Bartlett",r:"en",a:"edit",v:"v-band",c:["#000000","#ffffff","#ffffff"],t:["Diary of","a CEO"],note:"El mejor sistema visual de podcast de negocios del mundo. Parece una revista, no un canal. Tu referente número uno."},
- {n:"Call Her Daddy",h:"Alex Cooper",r:"en",a:"color",v:"v-block",c:["#d62828","#ffffff","#ffffff"],t:["Call Her","Daddy"],note:"Citada en las guías por alto contraste y texto mínimo. Contacto visual directo más un bloque de color."},
- {n:"Huberman Lab",h:"Andrew Huberman",r:"en",a:"retrato",v:"v-band",c:["#0b1b2b","#ffffff","#4aa3df"],t:["Huberman","Lab"],note:"Citada como ejemplo de legibilidad: una cara, fondo limpio, título bold. La fórmula más replicable que existe."},
- {n:"The Joe Rogan Experience",h:"Joe Rogan",r:"en",a:"retrato",v:"v-band",c:["#000000","#ffffff","#ffffff"],t:["Joe Rogan"],note:"Minimalismo extremo. Demuestra que con audiencia la portada da igual. No lo copies: tú no tienes su audiencia."},
- {n:"Lex Fridman Podcast",h:"Lex Fridman",r:"en",a:"retrato",v:"v-band",c:["#0a0a0a","#ffffff","#8899aa"],t:["Lex","Fridman"],note:"Austeridad como señal de seriedad intelectual. Traje, fondo negro, cero adornos."},
- {n:"My First Million",h:"Shaan + Sam",r:"en",a:"dupla",v:"v-duo",c:["#0f9d58","#ffffff","#ffd400"],t:["My First","Million"],note:"La fórmula de la dupla: ambas caras siempre presentes, en la misma posición, todas las semanas."},
- {n:"Girls That Invest",h:"Simran + Sonya",r:"en",a:"color",v:"v-block",c:["#19b89c","#0a2e28","#0a2e28"],t:["Girls That","Invest"],note:"Muy relevante para ti: negocio y mujeres sin caer en pastel ni manuscrita. Un negocio de seis cifras desde cero."},
- {n:"Acquired",h:"Ben + David",r:"en",a:"logo",v:"v-mark",c:["#f5f5f3","#1a1a1a","#1a5c3a"],t:["Acquired"],mk:"sq",note:"Limpio hasta la austeridad. Funciona porque la promesa es rigor y la portada lo transmite."},
- {n:"All-In Podcast",h:"Los cuatro",r:"en",a:"dupla",v:"v-duo",c:["#121212","#ffffff","#e8402a"],t:["All-In"],note:"Cuatro voces, fondo oscuro. Identidad de tertulia: nadie destaca sobre nadie."},
- {n:"SmartLess",h:"Bateman + Arnett + Hayes",r:"en",a:"ilus",v:"v-illus",c:["#00a3a3","#ffffff","#ffd400"],t:["SmartLess"],note:"Ilustración de los tres sobre color plano. Celebridades que eligen no usar foto: la ilustración los iguala."}
+ {f:"diary-of-a-ceo",n:"The Diary Of A CEO",h:"Steven Bartlett · DOAC",r:"en",a:"edit",note:"Negro absoluto, retrato recortado y «DOAC» en caja blanca sobre la camiseta. Las siglas resuelven el problema del nombre largo. El mejor sistema del muro."},
+ {f:"call-her-daddy",n:"Call Her Daddy",h:"Alex Cooper · SiriusXM",r:"en",a:"retrato",mujer:1,note:"Crema y una tarjeta roja sostenida en la mano, con mirada directa a cámara. La tarjeta es un recurso listísimo: bloque de color legible sin tapar la cara."},
+ {f:"huberman-lab",n:"Huberman Lab",h:"Andrew Huberman",r:"en",a:"retrato",note:"Retrato en blanco y negro con marco y tipografía en cian. Dos colores en total. Es la fórmula más replicable que existe."},
+ {f:"joe-rogan",n:"The Joe Rogan Experience",h:"Joe Rogan · Spotify",r:"en",a:"badge",mic:1,note:"Emblema circular con cara ilustrada, tercer ojo, rayos y micrófono. Parece un parche de chupa. El podcast más grande del mundo."},
+ {f:"lex-fridman",n:"Lex Fridman Podcast",h:"Lex Fridman",r:"en",a:"retrato",note:"Traje, fondo negro, tipografía gris y cian de peso ligero. Austeridad deliberada. En gris pierde casi todo el título."},
+ {f:"my-first-million",n:"My First Million",h:"Shaan + Sam · HubSpot",r:"en",a:"dupla",note:"Negro, las dos caras a los lados y el título en dorado y blanco en el centro. La plantilla de dupla de negocio, ejecutada sin un fallo."},
+ {f:"friends-that-invest",n:"Friends That Invest",h:"Simran Kaur · antes Girls That Invest",r:"en",a:"retrato",mujer:1,note:"Oficina blanca luminosa y magenta sobre papel rasgado. El código «mujer y finanzas» al completo: luz alta, sonrisa, tipografía fina. Se pierde en miniatura."},
+ {f:"acquired",n:"Acquired",h:"Ben Gilbert + David Rosenthal",r:"en",a:"logo",note:"Verde esmeralda oscuro con turquesa y un tagline corto. El único «negocio premium» que escapa del negro, y por eso se distingue de todos sus competidores."},
+ {f:"all-in",n:"All-In",h:"Chamath, Jason, Sacks, Friedberg",r:"en",a:"logo",note:"Bodegón de fichas de póker con los cuatro nombres listados. Sin caras: la marca son los nombres. Funciona solo porque ya los conoces."},
+ {f:"smartless",n:"SmartLess",h:"Bateman + Hayes + Arnett",r:"en",a:"dupla",note:"Crema y negro con arcoíris retro alrededor de los tres. La tipografía de palo gordo arriba aguanta cualquier tamaño."},
+ // ---- NO RESUELTAS ----
+ {f:null,n:"El Podcast de Marian Rojas Estapé",h:"España · el nº1 en audio",r:"es",a:"retrato",mujer:1,note:"No se resolvió en el catálogo de Apple. Es el podcast con más seguidores de Spotify en España, así que su ausencia aquí es un dato en sí: puede apuntar a una distribución centrada en Spotify."},
+ {f:null,n:"Victoria 147",h:"Ana Victoria García · México",r:"latam",a:"retrato",mujer:1,note:"No se resolvió. El programa existe bajo otro nombre oficial, El Podcast de Emprendedoras, y no se pudo confirmar la correspondencia a tiempo."}
 ];
-
-function tile(s){
-  const [bg,fg,ac]=s.c, sr=s.sr?" tx-sr":"";
-  let inner="";
-  if(s.v==="v-chaos"){
-    inner=`<span class="blob" style="width:58%;aspect-ratio:1;background:${ac};left:-14%;top:-10%"></span>
-           <span class="blob" style="width:46%;aspect-ratio:1;background:${ac};right:-10%;bottom:-12%;opacity:.8"></span>`;
-  }
-  if(s.v==="v-illus"){
-    inner=`<span class="ch" style="width:38%;aspect-ratio:1;background:${ac};left:8%;top:10%"></span>
-           <span class="ch" style="width:30%;aspect-ratio:1;background:${fg};opacity:.22;right:10%;top:20%"></span>`;
-  }
-  let body="";
-  if(s.v==="v-duo"){
-    body=`<div class="pair" style="color:${fg}"><i></i><i></i></div><p class="tx${sr}">${s.t.join("<br>")}</p>`;
-  }else if(s.v==="v-mark"){
-    body=`<span class="mk ${s.mk||""}" style="color:${ac}"></span><p class="tx${sr}">${s.t.join("<br>")}</p>`;
-  }else if(s.v==="v-band"){
-    body=`<p class="tx${sr}">${s.t.join("<br>")}</p><span class="sil" style="color:${ac}"></span>`;
-  }else{
-    body=`<p class="tx${sr}">${s.t.join("<br>")}</p>`;
-  }
-  const accentRule=(s.v==="v-block"||s.v==="v-stack")?`color:${fg}`:`color:${fg}`;
-  return `<div class="tile ${s.v}" style="background:${bg};${accentRule}">${inner}<div class="ly">${body}</div></div>`;
-}
 
 function card(s){
   const q=encodeURIComponent(s.n);
-  return `<article class="show" data-r="${s.r}">
-    ${tile(s)}
+  const tile = s.f
+    ? `<div class="tile"><img src="covers/${s.f}.jpg" alt="Portada de ${s.n}" loading="lazy" decoding="async" width="1000" height="1000"></div>`
+    : `<div class="tile na"><span>Portada no disponible<br>en el catálogo</span></div>`;
+  const micTag = s.mic ? `<span class="tag mic">Micrófono</span>` : "";
+  return `<article class="show" data-r="${s.r}" data-mic="${s.mic?1:0}" data-mujer="${s.mujer?1:0}">
+    ${tile}
     <div class="meta">
       <p class="nm">${s.n}</p>
       <p class="hs">${s.h}</p>
-      <div class="tags"><span class="tag">${R[s.r]}</span><span class="tag">${A[s.a][0]}</span></div>
+      <div class="tags"><span class="tag">${R[s.r]}</span><span class="tag">${A[s.a][0]}</span>${micTag}</div>
       <p class="an">${s.note}</p>
-      <a class="lk" href="https://podcasts.apple.com/search?term=${q}" target="_blank" rel="noopener">Ver la portada real →</a>
+      <a class="lk" href="https://podcasts.apple.com/search?term=${q}" target="_blank" rel="noopener">Ver en Apple Podcasts →</a>
     </div>
   </article>`;
 }
 
 const grid=document.getElementById("grid");
 grid.innerHTML=S.map(card).join("");
-
 document.getElementById("arch").innerHTML=Object.values(A).map(([k,v,ex])=>
   `<div class="c"><p class="k">${k}</p><p class="v">${v}</p><p class="ex">${ex}</p></div>`).join("");
 
-let region="all";
+let filt="all";
 function apply(){
   let n=0;
   grid.querySelectorAll(".show").forEach(el=>{
-    const ok=region==="all"||el.dataset.r===region;
+    let ok;
+    if(filt==="all") ok=true;
+    else if(filt==="mic") ok=el.dataset.mic==="1";
+    else if(filt==="mujer") ok=el.dataset.mujer==="1";
+    else ok=el.dataset.r===filt;
     el.hidden=!ok; if(ok)n++;
   });
-  document.getElementById("ct").textContent=n+" de "+S.length+" identidades";
+  document.getElementById("ct").textContent=n+" de "+S.length;
 }
 function press(box,btn){box.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));}
 
@@ -340,7 +304,7 @@ szBox.addEventListener("click",e=>{
 const rgBox=document.getElementById("rg");
 rgBox.addEventListener("click",e=>{
   const b=e.target.closest("button"); if(!b)return;
-  press(rgBox,b); region=b.dataset.r; apply();
+  press(rgBox,b); filt=b.dataset.r; apply();
 });
 const gsb=document.getElementById("gsb");
 gsb.addEventListener("click",()=>{
