@@ -1,0 +1,5 @@
+/* Orden intencionado: tokens → base → movimiento.
+   Los tokens deben existir antes de que nadie los use. */
+@import "../styles/tokens.css";
+@import "../styles/base.css";
+@import "../styles/motion.css";

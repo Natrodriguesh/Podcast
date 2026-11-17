@@ -1,0 +1,104 @@
+/* =========================================================================
+   TOKENS
+   Única fuente de verdad del sistema visual.
+   Cuando llegue el design system definitivo, se cambian los valores AQUÍ
+   y la web entera cambia. Ningún componente define color, escala ni tiempo.
+   ========================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------
+     COLOR
+     #861720 es el único color confirmado. El resto se deriva de él:
+     el fondo es un casi-negro con subtono rojo, no negro puro.
+     --------------------------------------------------------------------- */
+  --c-ink: #140a0b; /* campo principal */
+  --c-ink-raised: #1d1012; /* paneles, formulario */
+  --c-brand: #861720; /* marca */
+  --c-brand-lift: #a61e2a; /* estado activo / hover */
+  --c-bone: #f2ebe0; /* texto principal */
+
+  --c-bone-soft: rgb(242 235 224 / 0.62); /* texto secundario */
+  --c-bone-faint: rgb(242 235 224 / 0.38); /* etiquetas, metadatos */
+  --c-rule: rgb(242 235 224 / 0.14); /* filetes de 1px */
+  --c-rule-strong: rgb(242 235 224 / 0.28);
+
+  /* ---------------------------------------------------------------------
+     TIPOGRAFÍA
+     Dos familias, como marca el benchmark. Las etiquetas usan la grotesca
+     en versalitas con tracking abierto, no una tercera familia.
+     --------------------------------------------------------------------- */
+  --f-display: var(--font-display), "Times New Roman", serif;
+  --f-sans: var(--font-sans), system-ui, sans-serif;
+
+  /* Escala con salto brutal entre display y cuerpo: ahí está la elegancia.
+     El display también se limita por ALTO de ventana: si no, en portátiles
+     de 900px el titular empuja la llamada a la acción fuera de pantalla. */
+  --t-display: clamp(3.2rem, min(8.5vw, 10vh), 7rem);
+  --t-headline: clamp(2rem, 4.4vw, 3.4rem);
+  --t-lead: clamp(1.35rem, 2.1vw, 1.95rem);
+  --t-body: 1.0625rem;
+  --t-small: 0.9375rem;
+  --t-label: 0.6875rem;
+
+  --lh-display: 0.94;
+  --lh-headline: 1.08;
+  --lh-lead: 1.38;
+  --lh-body: 1.62;
+
+  --tracking-label: 0.18em;
+  --tracking-display: -0.025em;
+
+  /* Longitud de línea: nunca más de 70 caracteres */
+  --measure: 62ch;
+  --measure-tight: 46ch;
+
+  /* ---------------------------------------------------------------------
+     RETÍCULA Y ESPACIO
+     --------------------------------------------------------------------- */
+  --grid-cols: 12;
+  --gutter: clamp(1rem, 2vw, 1.75rem);
+  --margin: clamp(1.25rem, 5vw, 5.5rem);
+  --max-w: 90rem;
+
+  /* Aire generoso, pero no hueco: el vacío por el vacío se lee como
+     "falta contenido", no como elegancia. */
+  --space-section: clamp(5rem, 11vh, 8.5rem);
+  --space-block: clamp(2rem, 4.5vh, 3.25rem);
+  --space-item: 1.25rem;
+
+  --frame-inset: clamp(0.5rem, 1vw, 0.875rem); /* marco fijo de la ventana */
+
+  /* ---------------------------------------------------------------------
+     MOVIMIENTO
+     Regla: poco recorrido, mucha duración.
+     --------------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* la curva del sistema */
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --d-micro: 200ms; /* hover, foco */
+  --d-enter: 820ms; /* entrada de contenido */
+  --d-scene: 1200ms; /* transiciones grandes */
+
+  --travel: 32px; /* desplazamiento máximo. Nunca más */
+  --stagger: 70ms; /* escalonado entre líneas */
+
+  /* ---------------------------------------------------------------------
+     CAPAS
+     --------------------------------------------------------------------- */
+  --z-grain: 60;
+  --z-frame: 50;
+  --z-header: 40;
+  --z-loader: 90;
+}
+
+/* Accesibilidad: si el sistema pide menos movimiento, se anula todo.
+   No es simbólico — hay gente a quien esto le provoca mareo real. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --d-micro: 1ms;
+    --d-enter: 1ms;
+    --d-scene: 1ms;
+    --travel: 0px;
+    --stagger: 0ms;
+  }
+}
