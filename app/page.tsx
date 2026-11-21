@@ -1,27 +1,56 @@
-import { Apply } from "@/components/sections/Apply";
-import { Footer } from "@/components/sections/Footer";
-import { Founder } from "@/components/sections/Founder";
-import { Hero } from "@/components/sections/Hero";
-import { Inside } from "@/components/sections/Inside";
-import { Join } from "@/components/sections/Join";
-import { What } from "@/components/sections/What";
+import { Logo } from "@/components/brand/Logo";
+import { Barra } from "@/components/chrome/Barra";
+import { Campo } from "@/components/chrome/Campo";
+import { Carga } from "@/components/chrome/Carga";
+import { Revelados } from "@/components/providers/Revelados";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { Puente } from "@/components/ui/Escena";
+
+import { Inicio } from "@/components/scenes/Inicio";
+import { Comunidad } from "@/components/scenes/Comunidad";
+import { Dentro } from "@/components/scenes/Dentro";
+import { Solicitud } from "@/components/scenes/Solicitud";
+import { Podcast } from "@/components/scenes/Podcast";
+import { Anfitrionas } from "@/components/scenes/Anfitrionas";
+import { Pie } from "@/components/scenes/Pie";
 
 /**
- * Una sola página. El orden responde a las preguntas de quien entra:
- * qué es → qué pasa dentro → quién lo lidera → cómo entro → formulario.
- *
- * No hay sublandings: "About" es la sección 03 de este mismo scroll.
+ * Orden del recorrido. Cambiar el orden de la página es cambiar este bloque:
+ * cada escena declara su propio campo de color y el motor hace el resto.
  */
 export default function Home() {
   return (
-    <main>
-      <Hero />
-      <What />
-      <Inside />
-      <Founder />
-      <Join />
-      <Apply />
-      <Footer />
-    </main>
+    <>
+      <Campo />
+      <SmoothScroll />
+      <Revelados />
+      <Carga />
+      <Barra />
+
+      <main>
+        <Inicio />
+
+        <Puente>
+          <Logo ancho="min(44vw, 320px)" />
+        </Puente>
+
+        <Comunidad />
+        <Dentro />
+
+        <Puente>
+          <Logo ancho="min(44vw, 320px)" />
+        </Puente>
+
+        <Solicitud />
+
+        <Puente>
+          <Logo ancho="min(44vw, 320px)" />
+        </Puente>
+
+        <Podcast />
+        <Anfitrionas />
+        <Pie />
+      </main>
+    </>
   );
 }

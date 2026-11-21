@@ -1,6 +1,0 @@
-/* El padding compensa el descuelgue de las letras (g, j, p) para que la
-   máscara no las recorte. */
-.line {
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
-}

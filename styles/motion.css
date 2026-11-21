@@ -1,123 +1,77 @@
-/* =========================================================================
-   MOTION — primitivas de movimiento
-   Todas las animaciones de la web salen de aquí. Ningún componente
-   escribe duraciones ni curvas a mano.
-   ========================================================================= */
+/* ===========================================================================
+   Equitea · motion
+   Primitivas de movimiento. Todas corren del mismo reloj (tokens.css):
+   ningun componente escribe su propia duracion ni su propia curva.
 
-/* -------------------------------------------------------------------------
-   REVELADO POR MÁSCARA
-   El texto sube desde detrás de un borde invisible. Nunca fundido de
-   opacidad: una foto o un texto que "se desvanece" parece un error de
-   carga; uno que se descubre parece intencionado.
-   ------------------------------------------------------------------------- */
+   El estado de reposo es "visible". La clase .listo la pone el loader cuando
+   la pagina esta lista, y solo entonces los elementos arrancan escondidos.
+   Asi la pagina sigue completa si el JS no llega.
+   =========================================================================== */
 
-.reveal-mask {
+/* --- revelado por mascara: la linea sube desde detras de un borde -------- */
+
+.rv {
   display: block;
   overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
 }
+.rv > span { display: block; }
 
-.reveal-mask > * {
-  display: block;
-  transform: translate3d(0, 110%, 0);
-  transition: transform var(--d-enter) var(--ease-out);
-  transition-delay: calc(var(--i, 0) * var(--stagger));
-}
-
-[data-inview="true"] .reveal-mask > * {
-  transform: translate3d(0, 0, 0);
-}
-
-/* -------------------------------------------------------------------------
-   ENTRADA SIMPLE
-   Para bloques que no son texto. Poco recorrido, mucha duración.
-   ------------------------------------------------------------------------- */
-
-.reveal {
-  opacity: 0;
+.listo .rv > span {
   transform: translate3d(0, var(--travel), 0);
-  transition:
-    opacity var(--d-enter) var(--ease-out),
-    transform var(--d-enter) var(--ease-out);
+  transition: transform var(--d-enter) var(--ease);
   transition-delay: calc(var(--i, 0) * var(--stagger));
 }
+.listo .rv.dentro > span { transform: none; }
 
-[data-inview="true"] .reveal {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+/* --- revelado de bloque -------------------------------------------------- */
+
+.listo .fx {
+  opacity: 0;
+  transform: translate3d(0, var(--rise), 0);
+  transition: opacity var(--d-enter) var(--ease),
+              transform var(--d-enter) var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
 }
+.listo .fx.dentro { opacity: 1; transform: none; }
 
-/* -------------------------------------------------------------------------
-   FILETE QUE SE DIBUJA
-   La misma línea de la carga, reutilizada como separador.
-   ------------------------------------------------------------------------- */
+/* --- filete que se dibuja ------------------------------------------------ */
 
-.rule-draw {
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--d-scene) var(--ease-out);
-}
-
-[data-inview="true"] .rule-draw {
-  transform: scaleX(1);
-}
-
-/* -------------------------------------------------------------------------
-   IMAGEN: revelado con máscara + escala en reposo
-   El marco está quieto y la imagen respira dentro.
-   ------------------------------------------------------------------------- */
-
-.media {
-  position: relative;
-  overflow: hidden;
-  background: var(--c-ink-raised);
-}
-
-.media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--c-ink);
-  transform-origin: top;
-  transition: transform var(--d-scene) var(--ease-out);
-}
-
-[data-inview="true"] .media::after {
-  transform: scaleY(0);
-}
-
-.media > * {
-  transform: scale(1.04);
-  transition: transform calc(var(--d-scene) * 2) var(--ease-out);
-}
-
-[data-inview="true"] .media > * {
-  transform: scale(1);
-}
-
-/* -------------------------------------------------------------------------
-   ENLACES: subrayado que se dibuja desde la izquierda
-   ------------------------------------------------------------------------- */
-
-.link-underline {
-  position: relative;
-  display: inline-block;
-}
-
-.link-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
+.filete {
   height: 1px;
   background: currentColor;
+  opacity: 0.2;
+  transform-origin: left center;
+}
+.listo .filete {
   transform: scaleX(0);
-  transform-origin: right;
-  transition: transform var(--d-micro) var(--ease-out);
+  transition: transform var(--d-draw) var(--ease);
 }
+.listo .filete.dentro { transform: none; }
 
-.link-underline:hover::after,
-.link-underline:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left;
+/* --- Mark: subrayado a mano sobre una palabra del titular ---------------- */
+
+.mark { position: relative; display: inline-block; white-space: nowrap; }
+.mark svg {
+  position: absolute;
+  left: -0.04em;
+  bottom: -0.15em;
+  width: calc(100% + 0.08em);
+  height: 0.32em;
+  overflow: visible;
+  pointer-events: none;
 }
+.mark path {
+  fill: none;
+  stroke: var(--mark, var(--primary));
+  stroke-width: 7;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.listo .mark path {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  transition: stroke-dashoffset var(--d-draw) var(--ease) 260ms;
+}
+.listo .dentro .mark path { stroke-dashoffset: 0; }

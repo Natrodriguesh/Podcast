@@ -1,0 +1,56 @@
+.escena {
+  position: relative;
+  min-height: 94svh;
+  display: flex;
+  align-items: center;
+}
+.escena.suelta { min-height: auto; }
+
+.dentro {
+  padding-block: calc(var(--pad) * 1.25);
+  display: grid;
+  justify-items: start;
+  text-align: left;
+  gap: var(--gap);
+}
+
+/* Tinta de cada campo. Regla de marca: sobre rojo, siempre blanco; sobre
+   amarillo, vino. El amarillo nunca es color de texto. */
+.escena[data-campo="hueso"] {
+  color: var(--rojo-900);
+  --mark: var(--rojo-500);
+  --hueco-fondo: rgba(173, 25, 37, 0.055);
+  --hueco-borde: rgba(61, 12, 16, 0.18);
+}
+.escena[data-campo="rojo"] {
+  color: var(--blanco);
+  --mark: var(--amarillo-200);
+  --hueco-fondo: rgba(255, 255, 255, 0.085);
+  --hueco-borde: rgba(255, 255, 255, 0.26);
+}
+.escena[data-campo="amarillo"] {
+  color: var(--rojo-700);
+  --mark: var(--rojo-500);
+  --hueco-fondo: rgba(122, 26, 32, 0.07);
+  --hueco-borde: rgba(122, 26, 32, 0.2);
+}
+
+/* --- puente -------------------------------------------------------------- */
+
+.puente {
+  position: relative;
+  height: 62vh;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.puenteDentro {
+  color: var(--puente-tinta, var(--rojo-500));
+  transition: color 420ms linear;
+}
+
+@media (max-width: 620px) {
+  .escena { min-height: auto; }
+  .dentro { padding-block: clamp(72px, 12vh, 104px); }
+  .puente { height: 44vh; }
+}

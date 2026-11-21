@@ -1,45 +1,41 @@
-import type { Metadata } from "next";
-import { Archivo, Instrument_Serif } from "next/font/google";
-
+import type { Metadata, Viewport } from "next";
+import { Jost, Roboto } from "next/font/google";
+import { LogoSprite } from "@/components/brand/Logo";
 import "./globals.css";
 
-import { Atmosphere, Frame } from "@/components/chrome/Atmosphere";
-import { Header } from "@/components/chrome/Header";
-import { Loader } from "@/components/chrome/Loader";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
-
-/* Dos familias, como marca el benchmark: una serif editorial para el display
-   y una grotesca para todo lo demás. Las etiquetas usan la grotesca en
-   versalitas con tracking abierto — no hay una tercera familia. */
-
-const display = Instrument_Serif({
+/* Tipografía del sistema: Roboto para titulares, Jost para todo lo que se lee. */
+const roboto = Roboto({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-display",
+  weight: ["500", "700"],
+  variable: "--font-roboto",
   display: "swap",
 });
 
-const sans = Archivo({
+const jost = Jost({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: ["400", "500", "600"],
+  variable: "--font-jost",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "EQUITEA — Comunidad",
-  description:
-    "Comunidad privada en español para mujeres que construyen. Marcador de posición.",
+  title: "Equitea",
+  description: "Mujeres que emprenden, invierten y lideran.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#FBF8F5",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${display.variable} ${sans.variable}`}>
+    <html lang="es" className={`${roboto.variable} ${jost.variable}`}>
       <body>
-        <Loader />
-        <Atmosphere />
-        <Frame />
-        <Header />
-        <SmoothScroll>{children}</SmoothScroll>
+        <LogoSprite />
+        {children}
       </body>
     </html>
   );

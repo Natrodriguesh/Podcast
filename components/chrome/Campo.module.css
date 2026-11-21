@@ -1,0 +1,42 @@
+/* Capa fija detrás de todo el contenido. */
+.campo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--campo-desde, var(--hueso));
+}
+
+/* El color entrante llega por un cuenco que sube hasta llenar la pantalla. */
+.hacia {
+  position: absolute;
+  inset: 0;
+  background: var(--campo-hacia, var(--hueso));
+  clip-path: ellipse(150% var(--campo-p, 0%) at 50% 100%);
+}
+
+/* Resplandor que sigue al puntero con retardo. */
+.brillo {
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(
+    44% 44% at var(--puntero-x, 50%) var(--puntero-y, 42%),
+    rgba(255, 240, 181, 0.2),
+    rgba(255, 240, 181, 0) 70%
+  );
+  opacity: var(--brillo, 0);
+  transition: opacity 600ms linear;
+}
+
+/* Grano de papel: solo sobre los campos rojos. */
+.grano {
+  position: absolute;
+  inset: 0;
+  opacity: var(--grano, 0);
+  mix-blend-mode: overlay;
+  transition: opacity 500ms linear;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brillo { display: none; }
+}

@@ -1,104 +1,76 @@
-/* =========================================================================
-   TOKENS
-   Única fuente de verdad del sistema visual.
-   Cuando llegue el design system definitivo, se cambian los valores AQUÍ
-   y la web entera cambia. Ningún componente define color, escala ni tiempo.
-   ========================================================================= */
+/* ===========================================================================
+   Equitea · tokens
+   Fuente unica de verdad del sistema visual. Ningun componente escribe un
+   color, un tamano o una duracion a mano: todo sale de aqui.
+   Los valores vienen del design system de Equitea.
+   =========================================================================== */
 
 :root {
-  /* ---------------------------------------------------------------------
-     COLOR
-     #861720 es el único color confirmado. El resto se deriva de él:
-     el fondo es un casi-negro con subtono rojo, no negro puro.
-     --------------------------------------------------------------------- */
-  --c-ink: #140a0b; /* campo principal */
-  --c-ink-raised: #1d1012; /* paneles, formulario */
-  --c-brand: #861720; /* marca */
-  --c-brand-lift: #a61e2a; /* estado activo / hover */
-  --c-bone: #f2ebe0; /* texto principal */
+  /* --- paleta base ------------------------------------------------------ */
+  --rojo-500: #AD1925;   /* el rojo de la marca */
+  --rojo-600: #911420;   /* hover del boton principal */
+  --rojo-700: #7A1A20;   /* vino: texto largo sobre amarillo */
+  --rojo-900: #3D0C10;   /* texto principal sobre claro */
+  --amarillo-100: #FFF7DA;
+  --amarillo-200: #FFF0B5; /* el amarillo de la marca: solo fondo */
+  --hueso: #FBF8F5;
+  --blanco: #FFFFFF;
 
-  --c-bone-soft: rgb(242 235 224 / 0.62); /* texto secundario */
-  --c-bone-faint: rgb(242 235 224 / 0.38); /* etiquetas, metadatos */
-  --c-rule: rgb(242 235 224 / 0.14); /* filetes de 1px */
-  --c-rule-strong: rgb(242 235 224 / 0.28);
+  /* --- roles ------------------------------------------------------------ */
+  --bg: var(--hueso);
+  --ink: var(--rojo-900);
+  --primary: var(--rojo-500);
+  --on-primary: var(--blanco);
 
-  /* ---------------------------------------------------------------------
-     TIPOGRAFÍA
-     Dos familias, como marca el benchmark. Las etiquetas usan la grotesca
-     en versalitas con tracking abierto, no una tercera familia.
-     --------------------------------------------------------------------- */
-  --f-display: var(--font-display), "Times New Roman", serif;
-  --f-sans: var(--font-sans), system-ui, sans-serif;
+  /* --- campos de escena -------------------------------------------------
+     Cada escena declara su campo; el motor interpola entre ellos.          */
+  --campo-hueso: var(--hueso);
+  --campo-rojo: var(--rojo-500);
+  --campo-amarillo: var(--amarillo-200);
 
-  /* Escala con salto brutal entre display y cuerpo: ahí está la elegancia.
-     El display también se limita por ALTO de ventana: si no, en portátiles
-     de 900px el titular empuja la llamada a la acción fuera de pantalla. */
-  --t-display: clamp(3.2rem, min(8.5vw, 10vh), 7rem);
-  --t-headline: clamp(2rem, 4.4vw, 3.4rem);
-  --t-lead: clamp(1.35rem, 2.1vw, 1.95rem);
-  --t-body: 1.0625rem;
-  --t-small: 0.9375rem;
-  --t-label: 0.6875rem;
+  /* --- tipografia -------------------------------------------------------
+     Las familias las inyecta next/font en el layout.                       */
+  --f-display: var(--font-roboto), "Helvetica Neue", Arial, sans-serif;
+  --f-sans: var(--font-jost), "Futura", system-ui, sans-serif;
 
-  --lh-display: 0.94;
-  --lh-headline: 1.08;
-  --lh-lead: 1.38;
-  --lh-body: 1.62;
+  --t-hero: clamp(2.6rem, min(7.4vw, 9.5vh), 4.5rem);
+  --t-sec: clamp(2.2rem, min(6vw, 7.4vh), 3.9rem);
+  --t-sub: clamp(1.2rem, 2.2vw, 1.6rem);
+  --t-lead: clamp(1.02rem, 1.25vw, 1.18rem);
+  --t-body: 1rem;
+  --t-small: 0.9rem;
 
-  --tracking-label: 0.18em;
-  --tracking-display: -0.025em;
+  /* --- espaciado (pasos Equitea) ---------------------------------------- */
+  --s-2: 8px;  --s-3: 12px; --s-4: 16px;  --s-6: 24px;
+  --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px;
+  --pad: clamp(56px, 8.5vh, 96px);  /* aire vertical de escena */
+  --gap: clamp(28px, 4vh, 48px);    /* entre piezas de una escena */
 
-  /* Longitud de línea: nunca más de 70 caracteres */
-  --measure: 62ch;
-  --measure-tight: 46ch;
+  /* --- movimiento ------------------------------------------------------- */
+  --d-fast: 140ms;
+  --d-base: 220ms;
+  --d-slow: 360ms;
+  --d-enter: 780ms;
+  --d-draw: 900ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --stagger: 70ms;
+  --travel: 112%;   /* recorrido del revelado por mascara */
+  --rise: 26px;     /* recorrido del revelado de bloque */
 
-  /* ---------------------------------------------------------------------
-     RETÍCULA Y ESPACIO
-     --------------------------------------------------------------------- */
-  --grid-cols: 12;
-  --gutter: clamp(1rem, 2vw, 1.75rem);
-  --margin: clamp(1.25rem, 5vw, 5.5rem);
-  --max-w: 90rem;
+  /* --- medidas ---------------------------------------------------------- */
+  --maxw: 1180px;
+  --bar-h: 58px;
 
-  /* Aire generoso, pero no hueco: el vacío por el vacío se lee como
-     "falta contenido", no como elegancia. */
-  --space-section: clamp(5rem, 11vh, 8.5rem);
-  --space-block: clamp(2rem, 4.5vh, 3.25rem);
-  --space-item: 1.25rem;
-
-  --frame-inset: clamp(0.5rem, 1vw, 0.875rem); /* marco fijo de la ventana */
-
-  /* ---------------------------------------------------------------------
-     MOVIMIENTO
-     Regla: poco recorrido, mucha duración.
-     --------------------------------------------------------------------- */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* la curva del sistema */
-  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
-
-  --d-micro: 200ms; /* hover, foco */
-  --d-enter: 820ms; /* entrada de contenido */
-  --d-scene: 1200ms; /* transiciones grandes */
-
-  --travel: 32px; /* desplazamiento máximo. Nunca más */
-  --stagger: 70ms; /* escalonado entre líneas */
-
-  /* ---------------------------------------------------------------------
-     CAPAS
-     --------------------------------------------------------------------- */
-  --z-grain: 60;
-  --z-frame: 50;
-  --z-header: 40;
-  --z-loader: 90;
+  color-scheme: light;
 }
 
-/* Accesibilidad: si el sistema pide menos movimiento, se anula todo.
-   No es simbólico — hay gente a quien esto le provoca mareo real. */
+/* Un solo apagado para todo el movimiento de la pagina. */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --d-micro: 1ms;
     --d-enter: 1ms;
-    --d-scene: 1ms;
-    --travel: 0px;
+    --d-draw: 1ms;
     --stagger: 0ms;
+    --travel: 0%;
+    --rise: 0px;
   }
 }

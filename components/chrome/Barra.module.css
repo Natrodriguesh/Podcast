@@ -1,0 +1,82 @@
+.barra {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--barra-fondo, var(--hueso));
+  color: var(--barra-tinta, var(--rojo-900));
+  transition: background-color var(--d-base) linear, color var(--d-base) linear;
+}
+
+.progreso {
+  height: 2px;
+  background: currentColor;
+  opacity: 0.14;
+}
+.progreso > span {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+  transform: scaleX(var(--progreso, 0));
+  transform-origin: left center;
+}
+:global(html[data-barra="rojo"]) .progreso > span { background: var(--amarillo-200); }
+
+.fila {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  min-height: var(--bar-h);
+}
+
+.logo {
+  display: block;
+  flex: 0 0 auto;
+  line-height: 0;
+  color: var(--barra-logo, var(--rojo-500));
+  transition: color var(--d-base) linear;
+}
+
+.menu {
+  display: flex;
+  gap: var(--s-6);
+  margin-left: auto;
+  font-size: var(--t-small);
+}
+.menu a {
+  position: relative;
+  padding-block: 4px;
+  text-decoration: none;
+  opacity: 0.74;
+  transition: opacity var(--d-fast) linear;
+}
+.menu a::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-base) var(--ease);
+}
+.menu a:hover,
+.menu a[aria-current="true"] { opacity: 1; }
+.menu a:hover::after,
+.menu a[aria-current="true"]::after { transform: none; }
+
+/* Sobre rojo, el botón de la barra pasa a amarillo con texto vino. */
+:global(html[data-barra="rojo"]) .fila :global(.btn) {
+  background: var(--amarillo-200);
+  color: var(--rojo-700);
+}
+:global(html[data-barra="rojo"]) .fila :global(.btn):hover {
+  background: var(--amarillo-100);
+}
+
+@media (max-width: 620px) {
+  .menu { display: none; }
+  .fila { gap: var(--s-4); }
+}

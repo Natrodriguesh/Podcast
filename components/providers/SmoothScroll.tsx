@@ -4,52 +4,45 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 
 /**
- * Inercia del scroll.
- *
- * Clave: los clics del menú usan ESTE MISMO motor. Si la rueda va suave y
- * el menú salta de golpe, se rompe la ilusión — es el fallo más común en
- * las webs que imitan este tipo de scroll.
+ * Scroll con inercia. Los anclas del menú se mueven con el mismo motor que la
+ * rueda, así que pinchar y scrollear se sienten igual.
+ * Con "reducir movimiento" no se instala: el scroll queda nativo.
  */
-export function SmoothScroll({ children }: { children: React.ReactNode }) {
+export function SmoothScroll() {
   useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const lenis = new Lenis({
-      duration: 1.1, // por encima de ~1.3 la página parece ir con retraso
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 1.4,
-    });
+    let lenis: Lenis | null = null;
+    let marco = 0;
 
-    let frame = requestAnimationFrame(function loop(time: number) {
-      lenis.raf(time);
-      frame = requestAnimationFrame(loop);
-    });
+    if (!reduce) {
+      lenis = new Lenis({ duration: 1.1, smoothWheel: true, touchMultiplier: 1.4 });
+      const raf = (t: number) => {
+        lenis?.raf(t);
+        marco = requestAnimationFrame(raf);
+      };
+      marco = requestAnimationFrame(raf);
+    }
 
-    // Las anclas del menú entran por el mismo motor que la rueda.
-    const onClick = (event: MouseEvent) => {
-      const target = (event.target as HTMLElement | null)?.closest('a[href^="#"]');
-      if (!(target instanceof HTMLAnchorElement)) return;
-
-      const id = target.getAttribute("href")?.slice(1);
-      if (!id) return;
-
-      const destination = document.getElementById(id);
-      if (!destination) return;
-
-      event.preventDefault();
-      lenis.scrollTo(destination, { offset: -72, duration: 1.4 });
+    const alPinchar = (e: MouseEvent) => {
+      const destino = (e.target as HTMLElement | null)?.closest?.('a[href^="#"]');
+      if (!destino) return;
+      const id = destino.getAttribute("href")?.slice(1);
+      const nodo = id ? document.getElementById(id) : null;
+      if (!nodo) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(nodo, { offset: -56, duration: 1.35 });
+      else nodo.scrollIntoView({ behavior: "auto", block: "start" });
       history.replaceState(null, "", `#${id}`);
     };
 
-    document.addEventListener("click", onClick);
-
+    document.addEventListener("click", alPinchar);
     return () => {
-      document.removeEventListener("click", onClick);
-      cancelAnimationFrame(frame);
-      lenis.destroy();
+      document.removeEventListener("click", alPinchar);
+      cancelAnimationFrame(marco);
+      lenis?.destroy();
     };
   }, []);
 
-  return <>{children}</>;
+  return null;
 }

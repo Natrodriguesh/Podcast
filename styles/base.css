@@ -1,181 +1,175 @@
-/* =========================================================================
-   BASE — reset mínimo y tipografía de partida
-   ========================================================================= */
+/* ===========================================================================
+   Equitea · base
+   Reset corto y primitivas de composicion que usan todas las escenas.
+   =========================================================================== */
 
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-}
+*::after { box-sizing: border-box; }
 
-* {
-  margin: 0;
-}
-
-html {
-  -webkit-text-size-adjust: 100%;
-  /* El scroll suave lo gobierna Lenis en JS. Si JS falla, este es el respaldo. */
-  scroll-behavior: smooth;
-}
-
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
+html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--c-ink);
-  color: var(--c-bone);
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--f-sans);
   font-size: var(--t-body);
-  line-height: var(--lh-body);
-  font-synthesis-weight: none;
-  text-rendering: optimizeLegibility;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* Mientras carga, el scroll queda bloqueado */
-body[data-loading="true"] {
-  overflow: hidden;
-}
+/* Lenis necesita que el documento no tenga altura fija. */
+html.lenis,
+html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-}
-
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-h1,
-h2,
-h3 {
-  font-weight: 400;
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 700;
   text-wrap: balance;
 }
 
-p {
-  text-wrap: pretty;
-}
-
-::selection {
-  background: var(--c-brand);
-  color: var(--c-bone);
-}
+p { margin: 0; }
+a { color: inherit; }
+img { max-width: 100%; }
 
 :focus-visible {
-  outline: 2px solid var(--c-brand-lift);
+  outline: 2px solid var(--rojo-700);
   outline-offset: 3px;
 }
+[data-campo="rojo"] :focus-visible { outline-color: var(--amarillo-200); }
 
-/* -------------------------------------------------------------------------
-   PRIMITIVAS TIPOGRÁFICAS
-   ------------------------------------------------------------------------- */
+/* El contenido va por encima del campo, que es fijo y vive en z-index 0. */
+main { position: relative; z-index: 1; }
 
-.display {
-  font-family: var(--f-display);
-  font-size: var(--t-display);
-  line-height: var(--lh-display);
-  letter-spacing: var(--tracking-display);
+/* --- contenedor ---------------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 
-.headline {
-  font-family: var(--f-display);
-  font-size: var(--t-headline);
-  line-height: var(--lh-headline);
-  letter-spacing: -0.015em;
+/* --- tipografia de pagina ------------------------------------------------ */
+
+.ttl {
+  font-size: var(--t-sec);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
 }
 
 .lead {
   font-size: var(--t-lead);
-  line-height: var(--lh-lead);
-  max-width: var(--measure);
-  color: var(--c-bone);
+  line-height: 1.62;
+  max-width: 58ch;
 }
 
-.body-soft {
-  color: var(--c-bone-soft);
-  max-width: var(--measure);
-}
-
-/* Etiquetas y metadatos: la grotesca en versalitas, NO una tercera familia.
-   Es lo que da densidad editorial sin ensuciar el sistema. */
-.label {
-  font-size: var(--t-label);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--c-bone-faint);
+.eyebrow {
+  display: block;
+  font-size: var(--t-small);
   font-weight: 500;
-  font-variant-numeric: tabular-nums;
+  opacity: 0.74;
 }
 
-/* -------------------------------------------------------------------------
-   LAYOUT
-   ------------------------------------------------------------------------- */
-
-.shell {
-  width: 100%;
-  max-width: var(--max-w);
-  margin-inline: auto;
-  padding-inline: var(--margin);
+/* Marca de contenido que todavia no existe. Se quita cuando llegue el texto. */
+.ph {
+  border-bottom: 1px dotted currentColor;
+  opacity: 0.6;
 }
 
-/* Retícula de 12 columnas, pensada para usarse en asimetría.
-   Todo centrado es lo que hace que una web parezca plantilla. */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
-  gap: var(--gutter);
-}
+/* --- acciones ------------------------------------------------------------ */
 
-@media (max-width: 860px) {
-  .grid {
-    --grid-cols: 6;
-  }
-}
-
-.section {
-  position: relative;
-  padding-block: var(--space-section);
-}
-
-.rule {
-  height: 1px;
-  background: var(--c-rule);
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 var(--s-8);
   border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--f-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color var(--d-fast) linear,
+              transform var(--d-fast) var(--ease);
 }
+.btn:hover { background: var(--rojo-600); }
+.btn:active { transform: translateY(1px); }
+.btn--sm { min-height: 36px; padding: 0 var(--s-4); font-size: 0.85rem; }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+/* Sobre rojo el boton principal pasa a amarillo con texto vino. */
+[data-campo="rojo"] .btn { background: var(--amarillo-200); color: var(--rojo-700); }
+[data-campo="rojo"] .btn:hover { background: var(--amarillo-100); }
+
+.lnk {
+  position: relative;
+  padding-bottom: 3px;
+  text-decoration: none;
+  font-size: 0.98rem;
 }
+.lnk::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  transform-origin: left;
+  transition: transform var(--d-base) var(--ease);
+}
+.lnk:hover::after { transform: scaleX(0.35); }
+
+/* --- campos de formulario ------------------------------------------------ */
+
+.campo { position: relative; }
+.campo label {
+  display: block;
+  font-weight: 500;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+.campo__wrap { position: relative; }
+.campo input,
+.campo textarea {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-color: color-mix(in srgb, currentColor 32%, transparent);
+  color: inherit;
+  font-family: var(--f-sans);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  padding: var(--s-3) 0;
+  border-radius: 0;
+  appearance: none;
+}
+.campo input::placeholder,
+.campo textarea::placeholder { color: currentColor; opacity: 0.38; }
+.campo input:focus,
+.campo textarea:focus { outline: 0; }
+.campo textarea { resize: vertical; min-height: 88px; }
+
+/* El subrayado se dibuja al enfocar. */
+.campo__u {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-base) var(--ease);
+}
+.campo input:focus ~ .campo__u,
+.campo textarea:focus ~ .campo__u { transform: none; }
