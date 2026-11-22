@@ -5,7 +5,7 @@ import s from "./Banda.module.css";
  * Es como Nat ha usado antes el mockup de micrófonos: la imagen no se
  * presenta entera, se asoma.
  */
-export function Banda({ src, alt = "", ancho = "min(100%, 1400px)" }: {
+export function Banda({ src, alt = "", ancho = "100%" }: {
   src: string;
   alt?: string;
   ancho?: string;

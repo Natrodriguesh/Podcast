@@ -12,6 +12,8 @@
 
 .banda img {
   display: block;
+  /* a sangre de verdad: ocupa la ventana entera, sin canto a los lados */
+  width: 100%;
   height: auto;
   /* el recorte por abajo deja a la vista solo la parte alta */
   margin-bottom: clamp(-96px, -7vw, -40px);

@@ -35,8 +35,23 @@ export function Revelados() {
     };
     const t = window.setTimeout(abrirLoVisible, 60);
 
+    /* El margen negativo adelanta el revelado, pero deja una franja al final
+       del documento a la que no se puede llegar scrolleando: lo último de la
+       página se quedaría escondido para siempre. Al tocar fondo se abre todo
+       lo que quede. */
+    const alFondo = () => {
+      const resto = window.document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
+      if (resto > 4) return;
+      document.querySelectorAll(selector).forEach((n) => n.classList.add("dentro"));
+    };
+    window.addEventListener("scroll", alFondo, { passive: true });
+    window.addEventListener("resize", alFondo, { passive: true });
+    alFondo();
+
     return () => {
       window.clearTimeout(t);
+      window.removeEventListener("scroll", alFondo);
+      window.removeEventListener("resize", alFondo);
       observador.disconnect();
     };
   }, []);
