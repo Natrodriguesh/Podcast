@@ -20,6 +20,7 @@
    `--sticker` es aparte de la tinta: el sticker va en rojo de marca sobre
    claro y en amarillo sobre rojo, nunca en el rojo casi negro del texto. */
 .escena[data-campo="hueso"] {
+  --plataforma: var(--rojo-900);
   color: var(--rojo-900);
   --mark: var(--rojo-500);
   --sticker: var(--rojo-500);
@@ -27,6 +28,7 @@
   --hueco-borde: rgba(61, 12, 16, 0.18);
 }
 .escena[data-campo="rojo"] {
+  --plataforma: var(--blanco);
   color: var(--blanco);
   --mark: var(--amarillo-200);
   --sticker: var(--amarillo-200);
@@ -34,6 +36,7 @@
   --hueco-borde: rgba(255, 255, 255, 0.26);
 }
 .escena[data-campo="amarillo"] {
+  --plataforma: var(--rojo-900);
   color: var(--rojo-700);
   --mark: var(--rojo-500);
   --sticker: var(--rojo-500);

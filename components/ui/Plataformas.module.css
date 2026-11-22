@@ -3,10 +3,31 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: clamp(20px, 3.4vw, 54px);
+  gap: clamp(22px, 3.4vw, 52px);
   margin: 0;
   padding: 0;
   list-style: none;
-  font-weight: 600;
-  font-size: clamp(1rem, 1.25vw, 1.2rem);
 }
+
+/* Alineadas por altura, que es como se comparan dos logotipos. */
+.marca {
+  display: block;
+  height: clamp(20px, 2vw, 27px);
+  background-color: var(--plataforma, var(--rojo-900));
+
+  -webkit-mask-image: var(--src);
+  mask-image: var(--src);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.enlace {
+  display: block;
+  opacity: 0.92;
+  transition: opacity var(--d-fast) linear;
+}
+.enlace:hover { opacity: 1; }

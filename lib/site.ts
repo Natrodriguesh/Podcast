@@ -83,10 +83,10 @@ export const solicitud = {
 
 /** Dónde se escucha. `url` vacía = todavía no hay enlace. */
 export const plataformas = [
-  { nombre: "Spotify", url: "" },
-  { nombre: "Apple Podcasts", url: "" },
-  { nombre: "YouTube", url: "" },
-  { nombre: "Amazon Music", url: "" },
+  { nombre: "Spotify", archivo: "spotify", url: "" },
+  { nombre: "Apple Podcasts", archivo: "apple-podcasts", url: "" },
+  { nombre: "YouTube", archivo: "youtube", url: "" },
+  { nombre: "Amazon Music", archivo: "amazon-music", url: "" },
 ] as const;
 
 export const fotos = {
@@ -119,7 +119,7 @@ export const anfitrionas = {
       texto:
         "Pregunta por el negocio: cómo se levantó el dinero, en qué se gastó y qué número mira cada lunes.",
       forma: "arco" as const,
-      foto: null,
+      foto: "/fotos/nat.webp",
     },
     {
       nombre: "Rocío Andrada",
