@@ -90,7 +90,6 @@ export const plataformas = [
 ] as const;
 
 export const fotos = {
-  circulo: { src: "/fotos/circulo.webp", alt: "Cinco mujeres sentadas en círculo, conversando" },
   chat: { src: "/fotos/chat.webp", alt: "El grupo de la comunidad en el móvil" },
   micros: { src: "/fotos/micros.webp", alt: "Dos micrófonos de Equitea frente a frente" },
   rocio: { src: "/fotos/rocio.webp", alt: "Retrato de Rocío Andrada" },

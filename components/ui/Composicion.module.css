@@ -37,3 +37,20 @@
     transform: none;
   }
 }
+
+/* La segunda pieza cuando va sola: girada, con su marco, sin fingir
+   que hay una foto detrás. */
+.sola {
+  justify-self: center;
+  width: min(62%, 260px);
+  transform: rotate(-4deg);
+  border: 8px solid var(--hueco-fondo);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--hueco-fondo);
+}
+.sola img { width: 100%; height: auto; display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sola { transform: none; }
+}

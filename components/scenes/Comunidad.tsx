@@ -19,12 +19,9 @@ export function Comunidad() {
       ))}
 
       <div className="fx">
-        <Composicion
-          principal={fotos.circulo.src}
-          altPrincipal={fotos.circulo.alt}
-          encima={fotos.chat.src}
-          altEncima={fotos.chat.alt}
-        />
+        {/* Sin foto principal todavía: falta la fotografía real de la
+            comunidad. Entra como `principal` y la composición vuelve sola. */}
+        <Composicion encima={fotos.chat.src} altEncima={fotos.chat.alt} />
       </div>
 
       <p className="destacado fx">
