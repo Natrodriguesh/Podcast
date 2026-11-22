@@ -1,6 +1,6 @@
 import { Escena } from "@/components/ui/Escena";
-import { Hueco } from "@/components/ui/Hueco";
-import { comunidad, cta } from "@/lib/site";
+import { Composicion } from "@/components/ui/Composicion";
+import { comunidad, cta, fotos } from "@/lib/site";
 import e from "@/components/ui/Escena.module.css";
 
 export function Comunidad() {
@@ -18,12 +18,19 @@ export function Comunidad() {
         </p>
       ))}
 
+      <div className="fx">
+        <Composicion
+          principal={fotos.circulo.src}
+          altPrincipal={fotos.circulo.alt}
+          encima={fotos.chat.src}
+          altEncima={fotos.chat.alt}
+        />
+      </div>
+
       <p className="destacado fx">
         {comunidad.destacado.antes}
         <em>{comunidad.destacado.marcado}</em>.
       </p>
-
-      <Hueco forma="arco" />
 
       <div className={`${e.acto} fx`}>
         <a className="btn" href={`#${cta.id}`}>

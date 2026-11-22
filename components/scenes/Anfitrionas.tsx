@@ -15,7 +15,12 @@ export function Anfitrionas() {
       <div className={s.personas}>
         {anfitrionas.personas.map((p, i) => (
           <div className={`${s.persona} fx`} style={{ "--i": i } as React.CSSProperties} key={p.nombre}>
-            <Hueco forma={p.forma} ancho="min(70%, 240px)" />
+            <Hueco
+              forma={p.forma}
+              ancho="min(70%, 240px)"
+              src={p.foto ?? undefined}
+              alt={p.foto ? `Retrato de ${p.nombre}` : ""}
+            />
             <h3 className={s.personaN}>{p.nombre}</h3>
             <p className={s.personaR}>{p.rol}</p>
             <p className={s.personaT}>{p.texto}</p>

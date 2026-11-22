@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Logo } from "@/components/brand/Logo";
 import { Escena } from "@/components/ui/Escena";
-import { Hueco } from "@/components/ui/Hueco";
+import { Banda } from "@/components/ui/Banda";
+import { Plataformas } from "@/components/ui/Plataformas";
 import { CampoTexto } from "@/components/ui/CampoTexto";
-import { podcast } from "@/lib/site";
+import { fotos, podcast } from "@/lib/site";
 import s from "./scenes.module.css";
 
 export function Podcast() {
@@ -12,10 +14,9 @@ export function Podcast() {
 
   return (
     <Escena id="podcast" campo="rojo">
-      <h2 className="ttl">
-        <span className="rv">
-          <span>{podcast.titulo}</span>
-        </span>
+      {/* Aquí el título no es texto: es el bloqueo completo del logo. */}
+      <h2 className={`${s.tituloLogo} fx`}>
+        <Logo variante="completo" ancho="min(76vw, 520px)" titulo="Equitea Podcast" />
       </h2>
 
       <p className="lead fx">{podcast.entrada}</p>
@@ -25,7 +26,7 @@ export function Podcast() {
         <em>{podcast.destacado.marcado}</em>.
       </p>
 
-      <Hueco forma="medio" ancho="min(80%, 460px)" />
+      <Plataformas />
 
       <p className="lead fx">{podcast.aviso.texto}</p>
 
@@ -49,6 +50,8 @@ export function Podcast() {
           {anotado ? podcast.aviso.hecho : podcast.aviso.boton}
         </button>
       </form>
+
+      <Banda src={fotos.micros.src} alt={fotos.micros.alt} />
     </Escena>
   );
 }

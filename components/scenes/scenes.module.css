@@ -95,3 +95,10 @@
   font-size: var(--t-small);
   opacity: 0.78;
 }
+
+/* El podcast se titula con el bloqueo completo del logo, no con texto. */
+.tituloLogo {
+  display: flex;
+  justify-content: center;
+  color: var(--amarillo-200);
+}

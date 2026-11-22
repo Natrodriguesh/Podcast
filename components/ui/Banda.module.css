@@ -1,0 +1,18 @@
+.banda {
+  /* a sangre: se sale del contenedor hasta los bordes de la ventana */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  /* y se come el aire inferior de la escena, para quedar a ras */
+  margin-bottom: calc(-1 * var(--pad-escena));
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.banda img {
+  display: block;
+  height: auto;
+  /* el recorte por abajo deja a la vista solo la parte alta */
+  margin-bottom: clamp(-96px, -7vw, -40px);
+}

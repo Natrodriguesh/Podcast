@@ -81,6 +81,21 @@ export const solicitud = {
   },
 } as const;
 
+/** Dónde se escucha. `url` vacía = todavía no hay enlace. */
+export const plataformas = [
+  { nombre: "Spotify", url: "" },
+  { nombre: "Apple Podcasts", url: "" },
+  { nombre: "YouTube", url: "" },
+  { nombre: "Amazon Music", url: "" },
+] as const;
+
+export const fotos = {
+  circulo: { src: "/fotos/circulo.webp", alt: "Cinco mujeres sentadas en círculo, conversando" },
+  chat: { src: "/fotos/chat.webp", alt: "El grupo de la comunidad en el móvil" },
+  micros: { src: "/fotos/micros.webp", alt: "Dos micrófonos de Equitea frente a frente" },
+  rocio: { src: "/fotos/rocio.webp", alt: "Retrato de Rocío Andrada" },
+} as const;
+
 export const podcast = {
   titulo: "El podcast",
   entrada:
@@ -103,7 +118,8 @@ export const anfitrionas = {
       rol: "Founder y host",
       texto:
         "Pregunta por el negocio: cómo se levantó el dinero, en qué se gastó y qué número mira cada lunes.",
-      forma: "cuenco" as const,
+      forma: "arco" as const,
+      foto: null,
     },
     {
       nombre: "Rocío Andrada",
@@ -111,6 +127,7 @@ export const anfitrionas = {
       texto:
         "Pregunta por todo lo demás: lo que costó, con quién se habló y qué se dejó por el camino.",
       forma: "arco" as const,
+      foto: "/fotos/rocio.webp",
     },
   ],
 } as const;
