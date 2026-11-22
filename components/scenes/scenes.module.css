@@ -4,7 +4,6 @@
    =========================================================================== */
 
 .hero { min-height: 100svh; }
-.heroLogo { color: var(--rojo-500); }
 
 /* --- qué pasa dentro: lista editorial, nunca tarjetas -------------------- */
 
@@ -97,8 +96,10 @@
 }
 
 /* El podcast se titula con el bloqueo completo del logo, no con texto. */
+/* El bloqueo completo del logo hace de titular. Se usa una sola vez en la
+   pagina, en la entrada, y toma el color que le corresponde al campo. */
 .tituloLogo {
   display: flex;
   justify-content: center;
-  color: var(--amarillo-200);
+  color: var(--logo-escena, var(--amarillo-200));
 }

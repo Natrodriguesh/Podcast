@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Logo } from "@/components/brand/Logo";
 import { Escena } from "@/components/ui/Escena";
 import { Banda } from "@/components/ui/Banda";
 import { Plataformas } from "@/components/ui/Plataformas";
@@ -14,9 +13,10 @@ export function Podcast() {
 
   return (
     <Escena id="podcast" campo="rojo">
-      {/* Aquí el título no es texto: es el bloqueo completo del logo. */}
-      <h2 className={`${s.tituloLogo} fx`}>
-        <Logo variante="completo" ancho="min(76vw, 520px)" titulo="Equitea Podcast" />
+      <h2 className="ttl">
+        <span className="rv">
+          <span>{podcast.titulo}</span>
+        </span>
       </h2>
 
       <p className="lead fx">{podcast.entrada}</p>

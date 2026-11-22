@@ -31,6 +31,7 @@ export default function Home() {
 
       <main>
         <Inicio />
+        <Anfitrionas />
 
         <Cinta texto={cintas.comunidad} sobre="hueso" />
 
@@ -46,7 +47,6 @@ export default function Home() {
         <Cinta texto={cintas.podcast} sobre="rojo" />
 
         <Podcast />
-        <Anfitrionas />
         <Pie />
       </main>
     </>

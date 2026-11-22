@@ -7,9 +7,9 @@ import s from "./scenes.module.css";
 
 export function Inicio() {
   return (
-    <Escena id="inicio" campo="hueso" className={s.hero}>
-      <div className={`${s.heroLogo} fx`}>
-        <Logo variante="marca" ancho="min(64vw, 440px)" titulo="Equitea" />
+    <Escena id="inicio" campo="rojo" className={s.hero}>
+      <div className={`${s.tituloLogo} fx`}>
+        <Logo variante="completo" ancho="min(76vw, 520px)" titulo="Equitea Podcast" />
       </div>
 
       <h1 className="ttl">
