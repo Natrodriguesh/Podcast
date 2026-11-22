@@ -1,0 +1,13 @@
+.sticker {
+  display: block;
+  background-color: var(--sticker, var(--rojo-500));
+
+  -webkit-mask-image: var(--src);
+  mask-image: var(--src);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}

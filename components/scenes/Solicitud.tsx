@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { Sticker } from "@/components/brand/Sticker";
 import { Escena } from "@/components/ui/Escena";
 import { AreaTexto, CampoTexto } from "@/components/ui/CampoTexto";
 import { solicitud } from "@/lib/site";
+import e from "@/components/ui/Escena.module.css";
 import s from "./scenes.module.css";
 
 export function Solicitud() {
@@ -11,36 +13,34 @@ export function Solicitud() {
 
   /* Todavía no hay destino para las respuestas: cuando lo haya, aquí va el
      envío real. Mientras tanto no se pierde nada porque no se manda nada. */
-  const alEnviar = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const alEnviar = (ev: React.FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
     setEnviada(true);
   };
 
   return (
     <Escena id="solicitud" campo="hueso">
-      <div className={s.entradilla}>
-        <h2 className={s.titulo}>
-          <span className="rv">
-            <span>{solicitud.titulo}</span>
-          </span>
-        </h2>
-        <div className={`${s.filete} filete`} aria-hidden="true" />
-      </div>
+      <h2 className="ttl">
+        <span className="rv">
+          <span>{solicitud.titulo}</span>
+        </span>
+      </h2>
 
       {enviada ? (
         <div className={s.hecho} role="status">
           <p className={s.hechoT}>{solicitud.hecho.titulo}</p>
-          <p className={s.prosa}>
-            {solicitud.hecho.antes}
-            <span className="ph">{solicitud.hecho.pendiente}</span>
-          </p>
+          <p className="lead">{solicitud.hecho.texto}</p>
         </div>
       ) : (
         <>
-          <p className={`${s.prosa} fx`}>
-            {solicitud.entrada.antes}
-            <span className="ph">{solicitud.entrada.pendiente}</span>
-          </p>
+          <p className="lead fx">{solicitud.entrada}</p>
+
+          <Sticker
+            nombre="girls-just-want-to-have-funds"
+            texto="Girls just want to have funds"
+            ancho="min(58vw, 380px)"
+            className="fx"
+          />
 
           <form className={s.form} onSubmit={alEnviar} noValidate>
             {solicitud.campos.map((c, i) => (
@@ -63,7 +63,7 @@ export function Solicitud() {
               />
             </div>
 
-            <div className={`${s.formActo} fx`} style={{ "--i": 5 } as React.CSSProperties}>
+            <div className={`${s.formActo} ${e.acto} fx`} style={{ "--i": 5 } as React.CSSProperties}>
               <button className="btn" type="submit">
                 {solicitud.enviar}
               </button>

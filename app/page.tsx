@@ -4,7 +4,9 @@ import { Campo } from "@/components/chrome/Campo";
 import { Carga } from "@/components/chrome/Carga";
 import { Revelados } from "@/components/providers/Revelados";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { Cinta } from "@/components/ui/Cinta";
 import { Puente } from "@/components/ui/Escena";
+import { cintas } from "@/lib/site";
 
 import { Inicio } from "@/components/scenes/Inicio";
 import { Comunidad } from "@/components/scenes/Comunidad";
@@ -30,22 +32,18 @@ export default function Home() {
       <main>
         <Inicio />
 
-        <Puente>
-          <Logo ancho="min(44vw, 320px)" />
-        </Puente>
+        <Cinta texto={cintas.comunidad} sobre="hueso" />
 
         <Comunidad />
         <Dentro />
 
         <Puente>
-          <Logo ancho="min(44vw, 320px)" />
+          <Logo variante="marca" ancho="min(42vw, 300px)" />
         </Puente>
 
         <Solicitud />
 
-        <Puente>
-          <Logo ancho="min(44vw, 320px)" />
-        </Puente>
+        <Cinta texto={cintas.podcast} sobre="rojo" />
 
         <Podcast />
         <Anfitrionas />

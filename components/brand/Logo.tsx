@@ -1,8 +1,8 @@
-import { LOGO_SPRITE, LOGO_VIEWBOX } from "./logo-sprite";
+import { LOGO_SPRITE, LOGO_VIEWBOX, MARCA_VIEWBOX } from "./logo-sprite";
 
 /**
- * Hoja del logotipo. Va una sola vez en el layout; despues cualquier <Logo />
- * lo referencia con <use>. Asi el SVG pesa una vez y hereda currentColor.
+ * Hoja del logotipo. Va una sola vez en el layout; después cualquier <Logo />
+ * lo referencia con <use>. Así el SVG pesa una vez y hereda currentColor.
  */
 export function LogoSprite() {
   return (
@@ -16,17 +16,20 @@ export function LogoSprite() {
 }
 
 type Props = {
-  /** Ancho CSS. La altura sale de la proporcion del logo. */
+  /** `marca` es EQUITEA solo; `completo` lleva PODCAST debajo. */
+  variante?: "marca" | "completo";
+  /** Ancho CSS. La altura sale de la proporción del logo. */
   ancho?: string;
-  /** Texto alternativo. Sin el, el logo es decorativo. */
+  /** Texto alternativo. Sin él, el logo es decorativo. */
   titulo?: string;
   className?: string;
 };
 
-export function Logo({ ancho = "120px", titulo, className }: Props) {
+export function Logo({ variante = "marca", ancho = "120px", titulo, className }: Props) {
+  const esMarca = variante === "marca";
   return (
     <svg
-      viewBox={LOGO_VIEWBOX}
+      viewBox={esMarca ? MARCA_VIEWBOX : LOGO_VIEWBOX}
       className={className}
       style={{ width: ancho, height: "auto", display: "block" }}
       role={titulo ? "img" : undefined}
@@ -34,7 +37,7 @@ export function Logo({ ancho = "120px", titulo, className }: Props) {
       aria-hidden={titulo ? undefined : true}
       focusable="false"
     >
-      <use href="#eqLogo" />
+      <use href={esMarca ? "#eqMarca" : "#eqLogo"} />
     </svg>
   );
 }

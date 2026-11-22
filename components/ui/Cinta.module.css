@@ -1,0 +1,44 @@
+.cinta {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding-block: clamp(12px, 1.4vh, 18px);
+  background: var(--amarillo-200);
+  color: var(--rojo-700);
+}
+
+/* Sobre un campo rojo la cinta se invierte, para que siempre haya corte. */
+.cinta[data-sobre="rojo"] {
+  background: var(--rojo-500);
+  color: var(--amarillo-200);
+}
+
+.pista {
+  display: flex;
+  width: max-content;
+  animation: correr var(--d-cinta) linear infinite;
+}
+
+.pista > span {
+  font-family: var(--f-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  padding-right: clamp(30px, 4vw, 58px);
+}
+.pista > span::after {
+  content: "·";
+  padding-left: clamp(30px, 4vw, 58px);
+  opacity: 0.5;
+}
+
+@keyframes correr {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pista { animation: none; }
+}

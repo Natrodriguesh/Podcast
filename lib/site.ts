@@ -1,17 +1,18 @@
 /* ===========================================================================
    Equitea · contenido
-   Todo el texto de la página vive aquí, fuera del JSX. Para cambiar una
-   frase no hay que tocar un componente.
 
-   `pendiente` = texto que todavía no existe. Se marca en pantalla con un
-   subrayado punteado y se sustituye por el real cuando llegue.
+   ⚠️  TODO EL TEXTO DE ESTE ARCHIVO ES DE RELLENO.
+   Lo escribí yo para poder ver el diseño con párrafos de verdad en lugar de
+   huecos. No es la voz de Equitea y no debe publicarse como definitivo:
+   se sustituye frase a frase cuando llegue el texto real. Fuera de aquí no
+   hay texto en ningún componente, así que cambiarlo no toca el diseño.
    =========================================================================== */
 
 export const marca = {
   nombre: "Equitea",
   lema: ["Mujeres que emprenden,", "invierten y lideran."],
-  significado:
-    "Equi, de equilibrio y equidad. Tea, el té y también el chisme. Conversaciones sin prisa, una taza cada vez.",
+  entrada:
+    "Equitea empezó como una conversación entre dos amigas sobre dinero, negocio y todo lo que nadie te cuenta mientras estás construyendo algo. Hoy es un podcast y una comunidad de mujeres que ya están dentro del juego.",
 } as const;
 
 /** Orden del menú; coincide con el orden de las escenas. */
@@ -23,45 +24,49 @@ export const menu = [
 
 export const cta = { id: "solicitud", texto: "Solicitar entrada" } as const;
 
+export const cintas = {
+  comunidad: "Únete a la comunidad",
+  podcast: "Primera temporada en enero",
+} as const;
+
 export const inicio = {
-  acciones: {
-    principal: "Solicitar entrada",
-    secundaria: "Conoce el podcast",
-  },
-  indice: ["La comunidad, abierta", "El podcast, enero"],
+  acciones: { principal: "Solicitar entrada", secundaria: "Conoce el podcast" },
 } as const;
 
 export const comunidad = {
-  titulo: { antes: "Equitea ", marcada: "Comunidad" },
-  entrada: {
-    pendiente:
-      "Qué es la comunidad de Equitea y por qué existe: dos o tres frases que la definan.",
-  },
-  columnas: [
-    {
-      pendiente:
-        "Para quién es. A quién le sirve entrar: en qué momento está, qué está construyendo, qué busca.",
-    },
-    {
-      pendiente:
-        "Y para quién no. Qué no es esta comunidad, para que la solicitud llegue bien filtrada.",
-    },
+  titulo: "La comunidad",
+  parrafos: [
+    "Un grupo cerrado de founders, inversoras y mujeres que dirigen. Nos juntamos a hablar de lo que normalmente se habla a puerta cerrada: rondas, valoraciones, socios, despidos, márgenes, y lo que cuesta sostener una empresa cuando además sostienes todo lo demás.",
+    "Si levantaste capital o estás a punto de hacerlo, si tienes un negocio que ya factura, o si inviertes tu dinero o el de otros, este es tu sitio. Si todavía estás en la idea, te vamos a servir más dentro de un año, y te lo decimos antes para no hacerte perder el tiempo.",
   ],
+  destacado: { antes: "No es una red de contactos. Es un sitio donde puedes decir ", marcado: "la verdad sobre tu negocio" },
 } as const;
 
 export const dentro = {
   titulo: "Qué pasa dentro",
-  entrada: { pendiente: "Una frase que resuma la vida de la comunidad." },
   bloques: [
-    { titulo: "Encuentros", pendiente: "Cada cuánto, en qué formato y en qué ciudad." },
-    { titulo: "Acceso", pendiente: "A qué da acceso: invitadas, inversoras, oportunidades." },
-    { titulo: "Conversación", pendiente: "Dónde pasa el día a día de la comunidad." },
+    {
+      titulo: "Encuentros",
+      texto:
+        "Una vez al mes, en grupos pequeños y sin que nadie presente nada. Una pregunta sobre la mesa y tiempo para contestarla bien. En Barcelona y Madrid de momento, y en remoto para las que están fuera.",
+    },
+    {
+      titulo: "Acceso",
+      texto:
+        "Las invitadas del podcast entran al grupo antes de que salga su episodio. Lo que no se puede contar delante de un micrófono se cuenta aquí.",
+    },
+    {
+      titulo: "Conversación",
+      texto:
+        "Un canal privado donde se pregunta sin rodeos y se responde con cifras. Nadie vende nada y nadie da charlas.",
+    },
   ],
 } as const;
 
 export const solicitud = {
   titulo: "Solicitar entrada",
-  entrada: { antes: "Leemos todas las solicitudes. ", pendiente: "Plazo de respuesta." },
+  entrada:
+    "Leemos todas las solicitudes y respondemos en una semana. Preguntamos poco, pero lo que preguntamos lo leemos de verdad: queremos saber qué estás construyendo y por qué este grupo te sirve ahora y no dentro de dos años.",
   campos: [
     { id: "nombre", etiqueta: "Nombre y apellido", tipo: "text", pista: "Cómo te llamas", autoComplete: "name" },
     { id: "correo", etiqueta: "Correo", tipo: "email", pista: "tu@correo.com", autoComplete: "email" },
@@ -72,19 +77,17 @@ export const solicitud = {
   enviar: "Enviar solicitud",
   hecho: {
     titulo: "Solicitud recibida",
-    antes: "Te escribimos a tu correo. ",
-    pendiente: "Plazo de respuesta.",
+    texto: "Te escribimos a tu correo en una semana.",
   },
 } as const;
 
 export const podcast = {
-  titulo: { antes: "Equitea ", marcada: "Podcast" },
+  titulo: "El podcast",
   entrada:
-    "Un podcast de inversión, startups y negocio. Conversaciones con founders e inversoras que ya llegaron: mujeres que construyeron algo y lo sostienen.",
-  origenes: ["Arabia Saudí", "China", "Latinoamérica", "España"],
-  cita: { pendiente: "Una cita real de una invitada va aquí.", quien: "Quién la dijo" },
+    "Conversaciones con founders e inversoras de Arabia Saudí, China, Latinoamérica y España. Mujeres que ya llegaron, contando cómo lo hicieron y qué les costó, sin la versión de prensa. Nat pregunta por el negocio y Ro por todo lo demás.",
+  destacado: { antes: "Primera temporada ", marcado: "en enero" },
   aviso: {
-    texto: "Temporada 1, enero. Déjanos tu correo y te avisamos del estreno.",
+    texto: "Déjanos tu correo y te avisamos del estreno.",
     etiqueta: "Correo",
     pista: "tu@correo.com",
     boton: "Avísame",
@@ -98,13 +101,15 @@ export const anfitrionas = {
     {
       nombre: "Natalia Rodríguez",
       rol: "Founder y host",
-      pendiente: "Una línea sobre Nat: desde dónde pregunta.",
+      texto:
+        "Pregunta por el negocio: cómo se levantó el dinero, en qué se gastó y qué número mira cada lunes.",
       forma: "cuenco" as const,
     },
     {
       nombre: "Rocío Andrada",
       rol: "Co-host y directora creativa",
-      pendiente: "Una línea sobre Ro: desde dónde pregunta.",
+      texto:
+        "Pregunta por todo lo demás: lo que costó, con quién se habló y qué se dejó por el camino.",
       forma: "arco" as const,
     },
   ],
@@ -112,6 +117,6 @@ export const anfitrionas = {
 
 export const pie = {
   lema: "Mujeres que emprenden, invierten y lideran.",
-  contacto: { antes: "Invitadas y patrocinadores: ", pendiente: "correo" },
+  contacto: { antes: "Invitadas y patrocinadores: ", correo: "hola@equitea.com" },
   copyright: "© 2026 Equitea",
 } as const;

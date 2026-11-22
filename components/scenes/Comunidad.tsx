@@ -1,36 +1,34 @@
-import { Mark } from "@/components/brand/Mark";
 import { Escena } from "@/components/ui/Escena";
-import { comunidad } from "@/lib/site";
-import s from "./scenes.module.css";
+import { Hueco } from "@/components/ui/Hueco";
+import { comunidad, cta } from "@/lib/site";
+import e from "@/components/ui/Escena.module.css";
 
 export function Comunidad() {
   return (
     <Escena id="comunidad" campo="rojo">
-      <div className={s.entradilla}>
-        <h2 className={s.titulo}>
-          <span className="rv">
-            <span>
-              {comunidad.titulo.antes}
-              <Mark variante={1}>{comunidad.titulo.marcada}</Mark>
-            </span>
-          </span>
-        </h2>
-        <div className={`${s.filete} filete`} aria-hidden="true" />
-      </div>
+      <h2 className="ttl">
+        <span className="rv">
+          <span>{comunidad.titulo}</span>
+        </span>
+      </h2>
 
-      <div className={s.cuerpo}>
-        <p className={`${s.prosa} fx`}>
-          <span className="ph">{comunidad.entrada.pendiente}</span>
+      {comunidad.parrafos.map((p, i) => (
+        <p className="lead fx" style={{ "--i": i } as React.CSSProperties} key={p.slice(0, 24)}>
+          {p}
         </p>
-        {comunidad.columnas.map((c, i) => (
-          <p
-            className={`${s.prosa} fx`}
-            style={{ "--i": i + 1 } as React.CSSProperties}
-            key={c.pendiente}
-          >
-            <span className="ph">{c.pendiente}</span>
-          </p>
-        ))}
+      ))}
+
+      <p className="destacado fx">
+        {comunidad.destacado.antes}
+        <em>{comunidad.destacado.marcado}</em>.
+      </p>
+
+      <Hueco forma="arco" />
+
+      <div className={`${e.acto} fx`}>
+        <a className="btn" href={`#${cta.id}`}>
+          {cta.texto}
+        </a>
       </div>
     </Escena>
   );
