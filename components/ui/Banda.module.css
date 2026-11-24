@@ -1,7 +1,10 @@
 .banda {
-  /* a sangre: se sale del contenedor hasta los bordes de la ventana */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  /* A sangre. El truco de `margin-left: 50% - 50vw` no sirve aqui: la escena
+     centra a sus hijos, asi que el desplazamiento se aplicaba dos veces y la
+     banda acababa corrida a la izquierda, dejando un canto a la derecha.
+     Centrada y con el ancho de la ventana cae justo. */
+  justify-self: stretch;
+  margin-inline: calc(50% - 50vw);
   /* y se come el aire inferior de la escena, para quedar a ras */
   margin-bottom: calc(-1 * var(--pad-escena));
   display: flex;

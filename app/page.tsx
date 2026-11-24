@@ -39,7 +39,7 @@ export default function Home() {
         <Dentro />
 
         <Puente>
-          <Logo variante="marca" ancho="min(42vw, 300px)" />
+          <Logo variante="completo" ancho="min(42vw, 300px)" />
         </Puente>
 
         <Solicitud />

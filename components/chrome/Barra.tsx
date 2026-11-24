@@ -39,7 +39,7 @@ export function Barra() {
       </div>
       <div className={`${s.fila} wrap`}>
         <a className={s.logo} href="#inicio" aria-label="Equitea, inicio">
-          <Logo ancho="112px" />
+          <Logo variante="completo" ancho="104px" />
         </a>
         <nav className={s.menu} aria-label="Secciones">
           {menu.map((m) => (

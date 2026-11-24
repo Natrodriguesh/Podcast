@@ -70,7 +70,7 @@ export function Carga() {
         <span style={{ transform: `scaleX(${progreso})` }} />
       </div>
       <div className={s.logo}>
-        <Logo ancho="min(50vw, 300px)" />
+        <Logo variante="completo" ancho="min(52vw, 320px)" />
       </div>
     </div>
   );
